@@ -1,8 +1,12 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
+import '../dashboard/dashboard_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/upload_media.dart';
 import '../login/login_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -16,6 +20,9 @@ class RegistrierenWidget extends StatefulWidget {
 }
 
 class _RegistrierenWidgetState extends State<RegistrierenWidget> {
+  String uploadedFileUrl1 = '';
+  TextEditingController anzeigenameController;
+  String uploadedFileUrl2 = '';
   TextEditingController emailAddressController;
   TextEditingController passwordController;
   bool passwordVisibility;
@@ -27,6 +34,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
   @override
   void initState() {
     super.initState();
+    anzeigenameController = TextEditingController();
     emailAddressController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
@@ -99,88 +107,55 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                   Expanded(
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
-                      child: StreamBuilder<List<AnmeldedatenRecord>>(
-                        stream: queryAnmeldedatenRecord(
-                          queryBuilder: (anmeldedatenRecord) =>
-                              anmeldedatenRecord.orderBy('email'),
-                          singleRecord: true,
+                      child: TextFormField(
+                        controller: emailAddressController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'E-Mail ',
+                          labelStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF95A1AC),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintText: 'Gebe hier deine E-Mail ein...',
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF95A1AC),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
                         ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitDoubleBounce(
-                                  color: FlutterFlowTheme.primaryColor,
-                                  size: 50,
-                                ),
-                              ),
-                            );
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: Color(0xFF2B343A),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Field is required';
                           }
-                          List<AnmeldedatenRecord>
-                              emailAddressAnmeldedatenRecordList =
-                              snapshot.data;
-                          // Return an empty Container when the document does not exist.
-                          if (snapshot.data.isEmpty) {
-                            return Container();
-                          }
-                          final emailAddressAnmeldedatenRecord =
-                              emailAddressAnmeldedatenRecordList.isNotEmpty
-                                  ? emailAddressAnmeldedatenRecordList.first
-                                  : null;
-                          return TextFormField(
-                            controller: emailAddressController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: 'E-Mail ',
-                              labelStyle: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: Color(0xFF95A1AC),
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              hintText: 'Gebe hier deine E-Mail ein...',
-                              hintStyle: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: Color(0xFF95A1AC),
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDBE2E7),
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDBE2E7),
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
-                            ),
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFF2B343A),
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                            ),
-                            validator: (val) {
-                              if (val.isEmpty) {
-                                return 'Field is required';
-                              }
 
-                              return null;
-                            },
-                          );
+                          return null;
                         },
                       ),
                     ),
@@ -193,94 +168,61 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                   Expanded(
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
-                      child: StreamBuilder<List<AnmeldedatenRecord>>(
-                        stream: queryAnmeldedatenRecord(
-                          queryBuilder: (anmeldedatenRecord) =>
-                              anmeldedatenRecord.orderBy('email'),
-                          singleRecord: true,
+                      child: TextFormField(
+                        controller: passwordController,
+                        obscureText: !passwordVisibility,
+                        decoration: InputDecoration(
+                          labelText: 'Passwort',
+                          labelStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF95A1AC),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintText: 'Gebe hier dein Passwort ein...',
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF95A1AC),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                          suffixIcon: InkWell(
+                            onTap: () => setState(
+                              () => passwordVisibility = !passwordVisibility,
+                            ),
+                            child: Icon(
+                              passwordVisibility
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              color: Color(0xFF757575),
+                              size: 22,
+                            ),
+                          ),
                         ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitDoubleBounce(
-                                  color: FlutterFlowTheme.primaryColor,
-                                  size: 50,
-                                ),
-                              ),
-                            );
-                          }
-                          List<AnmeldedatenRecord>
-                              passwordAnmeldedatenRecordList = snapshot.data;
-                          // Return an empty Container when the document does not exist.
-                          if (snapshot.data.isEmpty) {
-                            return Container();
-                          }
-                          final passwordAnmeldedatenRecord =
-                              passwordAnmeldedatenRecordList.isNotEmpty
-                                  ? passwordAnmeldedatenRecordList.first
-                                  : null;
-                          return TextFormField(
-                            controller: passwordController,
-                            obscureText: !passwordVisibility,
-                            decoration: InputDecoration(
-                              labelText: 'Passwort',
-                              labelStyle: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: Color(0xFF95A1AC),
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              hintText: 'Gebe hier dein Passwort ein...',
-                              hintStyle: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: Color(0xFF95A1AC),
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDBE2E7),
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDBE2E7),
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
-                              suffixIcon: InkWell(
-                                onTap: () => setState(
-                                  () =>
-                                      passwordVisibility = !passwordVisibility,
-                                ),
-                                child: Icon(
-                                  passwordVisibility
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
-                                  color: Color(0xFF757575),
-                                  size: 22,
-                                ),
-                              ),
-                            ),
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFF2B343A),
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          );
-                        },
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: Color(0xFF2B343A),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ),
                   ),
@@ -292,101 +234,204 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                   Expanded(
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
-                      child: StreamBuilder<List<AnmeldedatenRecord>>(
-                        stream: queryAnmeldedatenRecord(
-                          queryBuilder: (anmeldedatenRecord) =>
-                              anmeldedatenRecord.orderBy('email'),
-                          singleRecord: true,
+                      child: TextFormField(
+                        controller: passwordBestaetigenController,
+                        obscureText: !passwordBestaetigenVisibility,
+                        decoration: InputDecoration(
+                          labelText: 'Passwort bestätigen',
+                          labelStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF95A1AC),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          hintText: 'Gebe hier dein Passwort erneut ein...',
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF95A1AC),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                          suffixIcon: InkWell(
+                            onTap: () => setState(
+                              () => passwordBestaetigenVisibility =
+                                  !passwordBestaetigenVisibility,
+                            ),
+                            child: Icon(
+                              passwordBestaetigenVisibility
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              color: Color(0xFF757575),
+                              size: 22,
+                            ),
+                          ),
                         ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitDoubleBounce(
-                                  color: FlutterFlowTheme.primaryColor,
-                                  size: 50,
-                                ),
-                              ),
-                            );
-                          }
-                          List<AnmeldedatenRecord>
-                              passwordBestaetigenAnmeldedatenRecordList =
-                              snapshot.data;
-                          // Return an empty Container when the document does not exist.
-                          if (snapshot.data.isEmpty) {
-                            return Container();
-                          }
-                          final passwordBestaetigenAnmeldedatenRecord =
-                              passwordBestaetigenAnmeldedatenRecordList
-                                      .isNotEmpty
-                                  ? passwordBestaetigenAnmeldedatenRecordList
-                                      .first
-                                  : null;
-                          return TextFormField(
-                            controller: passwordBestaetigenController,
-                            obscureText: !passwordBestaetigenVisibility,
-                            decoration: InputDecoration(
-                              labelText: 'Passwort bestätigen',
-                              labelStyle: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: Color(0xFF95A1AC),
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              hintText: 'Gebe hier dein Passwort erneut ein...',
-                              hintStyle: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: Color(0xFF95A1AC),
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDBE2E7),
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFFDBE2E7),
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
-                              suffixIcon: InkWell(
-                                onTap: () => setState(
-                                  () => passwordBestaetigenVisibility =
-                                      !passwordBestaetigenVisibility,
-                                ),
-                                child: Icon(
-                                  passwordBestaetigenVisibility
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
-                                  color: Color(0xFF757575),
-                                  size: 22,
-                                ),
-                              ),
-                            ),
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFF2B343A),
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          );
-                        },
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: Color(0xFF2B343A),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ),
                   ),
                 ],
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                        child: TextFormField(
+                          controller: anzeigenameController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Anzeigename',
+                            labelStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0xFF95A1AC),
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            hintText: 'Vorname oder Nickname',
+                            hintStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0xFF95A1AC),
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFDBE2E7),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFDBE2E7),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                          ),
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFF2B343A),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          validator: (val) {
+                            if (val.isEmpty) {
+                              return 'Field is required';
+                            }
+
+                            return null;
+                          },
+                        ),
+                      ),
+                    ),
+                    FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30,
+                      borderWidth: 1,
+                      buttonSize: 46,
+                      icon: Icon(
+                        Icons.photo_camera_rounded,
+                        color: Color(0xFF8992FF),
+                        size: 24,
+                      ),
+                      onPressed: () async {
+                        final selectedMedia =
+                            await selectMediaWithSourceBottomSheet(
+                          context: context,
+                          allowPhoto: true,
+                          textColor: FlutterFlowTheme.tertiaryColor,
+                          pickerFontFamily: 'Poppins',
+                        );
+                        if (selectedMedia != null &&
+                            validateFileFormat(
+                                selectedMedia.storagePath, context)) {
+                          showUploadMessage(context, 'Uploading file...',
+                              showLoading: true);
+                          final downloadUrl = await uploadData(
+                              selectedMedia.storagePath, selectedMedia.bytes);
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          if (downloadUrl != null) {
+                            setState(() => uploadedFileUrl1 = downloadUrl);
+                            showUploadMessage(context, 'Success!');
+                          } else {
+                            showUploadMessage(
+                                context, 'Failed to upload media');
+                            return;
+                          }
+                        }
+                      },
+                    ),
+                    FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30,
+                      borderWidth: 1,
+                      buttonSize: 46,
+                      icon: Icon(
+                        Icons.qr_code_rounded,
+                        color: Color(0xFF8992FF),
+                        size: 24,
+                      ),
+                      onPressed: () async {
+                        final selectedMedia =
+                            await selectMediaWithSourceBottomSheet(
+                          context: context,
+                          allowPhoto: true,
+                          textColor: FlutterFlowTheme.tertiaryColor,
+                          pickerFontFamily: 'Poppins',
+                        );
+                        if (selectedMedia != null &&
+                            validateFileFormat(
+                                selectedMedia.storagePath, context)) {
+                          showUploadMessage(context, 'Uploading file...',
+                              showLoading: true);
+                          final downloadUrl = await uploadData(
+                              selectedMedia.storagePath, selectedMedia.bytes);
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          if (downloadUrl != null) {
+                            setState(() => uploadedFileUrl2 = downloadUrl);
+                            showUploadMessage(context, 'Success!');
+                          } else {
+                            showUploadMessage(
+                                context, 'Failed to upload media');
+                            return;
+                          }
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
@@ -394,24 +439,72 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    FFButtonWidget(
-                      onPressed: () {
-                        print('Button pressed ...');
-                      },
-                      text: 'Weiter',
-                      options: FFButtonOptions(
-                        width: 130,
-                        height: 40,
-                        color: Color(0xFF8992FF),
-                        textStyle: FlutterFlowTheme.subtitle2.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
+                    Expanded(
+                      child: Align(
+                        alignment: AlignmentDirectional(1, 0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            if (!formKey.currentState.validate()) {
+                              return;
+                            }
+                            if (passwordController.text !=
+                                passwordBestaetigenController.text) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Passwords don't match!",
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+
+                            final user = await createAccountWithEmail(
+                              context,
+                              emailAddressController.text,
+                              passwordController.text,
+                            );
+                            if (user == null) {
+                              return;
+                            }
+
+                            final usersCreateData = createUsersRecordData(
+                              email: '',
+                              displayName: '',
+                              photoUrl: '',
+                              uid: '',
+                              createdTime: getCurrentTimestamp,
+                              phoneNumber: '',
+                              ticketUrl: '',
+                            );
+                            await UsersRecord.collection
+                                .doc(user.uid)
+                                .update(usersCreateData);
+
+                            await Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DashboardWidget(),
+                              ),
+                              (r) => false,
+                            );
+                          },
+                          text: 'Weiter',
+                          options: FFButtonOptions(
+                            width: 130,
+                            height: 40,
+                            color: Color(0xFF8992FF),
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Poppins',
+                              color: Colors.white,
+                            ),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: 12,
+                          ),
                         ),
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: 12,
                       ),
                     ),
                   ],

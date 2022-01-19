@@ -34,6 +34,12 @@ abstract class AnmeldedatenRecord
   String get phoneNumber;
 
   @nullable
+  String get ticket;
+
+  @nullable
+  double get budget;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -42,7 +48,9 @@ abstract class AnmeldedatenRecord
     ..displayName = ''
     ..photoUrl = ''
     ..uid = ''
-    ..phoneNumber = '';
+    ..phoneNumber = ''
+    ..ticket = ''
+    ..budget = 0.0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('Anmeldedaten');
@@ -73,6 +81,8 @@ Map<String, dynamic> createAnmeldedatenRecordData({
   String uid,
   DateTime createdTime,
   String phoneNumber,
+  String ticket,
+  double budget,
 }) =>
     serializers.toFirestore(
         AnmeldedatenRecord.serializer,
@@ -82,4 +92,6 @@ Map<String, dynamic> createAnmeldedatenRecordData({
           ..photoUrl = photoUrl
           ..uid = uid
           ..createdTime = createdTime
-          ..phoneNumber = phoneNumber));
+          ..phoneNumber = phoneNumber
+          ..ticket = ticket
+          ..budget = budget));

@@ -1,7 +1,10 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../budget/budget_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../login/login_widget.dart';
 import '../mitteilungen/mitteilungen_widget.dart';
 import '../ticket/ticket_widget.dart';
 import 'package:flutter/material.dart';
@@ -44,16 +47,33 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                              child: Container(
-                                width: 32,
-                                height: 32,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Image.network(
-                                  'https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-                                  fit: BoxFit.fitWidth,
+                              child: AuthUserStreamWidget(
+                                child: InkWell(
+                                  onTap: () async {
+                                    await signOut();
+                                    await Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => LoginWidget(),
+                                      ),
+                                      (r) => false,
+                                    );
+                                  },
+                                  child: Container(
+                                    width: 32,
+                                    height: 32,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      valueOrDefault<String>(
+                                        currentUserPhoto,
+                                        'Foto',
+                                      ),
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -61,13 +81,18 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                               child: Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
-                                child: Text(
-                                  'Ashley',
-                                  textAlign: TextAlign.start,
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.w600,
+                                child: AuthUserStreamWidget(
+                                  child: Text(
+                                    valueOrDefault<String>(
+                                      currentUserDisplayName,
+                                      'Fehlt',
+                                    ),
+                                    textAlign: TextAlign.start,
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -148,50 +173,54 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16, 0, 0, 0),
-                                          child: Text(
-                                            'Verbunden',
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.w600,
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 0, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8, 0, 0, 0),
+                                            child: Text(
+                                              'Verbunden',
+                                              style: FlutterFlowTheme.bodyText1
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 0, 0),
-                                          child: Container(
-                                            width: 16,
-                                            height: 16,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xCD97EE60),
-                                              shape: BoxShape.circle,
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8, 0, 0, 0),
+                                            child: Container(
+                                              width: 16,
+                                              height: 16,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xCD97EE60),
+                                                shape: BoxShape.circle,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        FlutterFlowIconButton(
-                                          borderColor: Colors.transparent,
-                                          borderRadius: 30,
-                                          borderWidth: 1,
-                                          buttonSize: 46,
-                                          icon: Icon(
-                                            Icons.refresh,
-                                            color: Color(0x4D9E9E9E),
-                                            size: 24,
+                                          FlutterFlowIconButton(
+                                            borderColor: Colors.transparent,
+                                            borderRadius: 30,
+                                            borderWidth: 1,
+                                            buttonSize: 46,
+                                            icon: Icon(
+                                              Icons.refresh,
+                                              color: Color(0x4D9E9E9E),
+                                              size: 24,
+                                            ),
+                                            onPressed: () {
+                                              print('IconButton pressed ...');
+                                            },
                                           ),
-                                          onPressed: () {
-                                            print('IconButton pressed ...');
-                                          },
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -233,32 +262,101 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     8, 0, 0, 0),
-                                            child: InkWell(
-                                              onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  PageTransition(
-                                                    type: PageTransitionType
-                                                        .rightToLeft,
-                                                    duration: Duration(
-                                                        milliseconds: 300),
-                                                    reverseDuration: Duration(
-                                                        milliseconds: 300),
-                                                    child: BudgetWidget(),
+                                            child: StreamBuilder<
+                                                List<AnmeldedatenRecord>>(
+                                              stream: queryAnmeldedatenRecord(
+                                                singleRecord: true,
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child:
+                                                          SpinKitDoubleBounce(
+                                                        color: FlutterFlowTheme
+                                                            .primaryColor,
+                                                        size: 50,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                List<AnmeldedatenRecord>
+                                                    textAnmeldedatenRecordList =
+                                                    snapshot.data;
+                                                // Return an empty Container when the document does not exist.
+                                                if (snapshot.data.isEmpty) {
+                                                  return Container();
+                                                }
+                                                final textAnmeldedatenRecord =
+                                                    textAnmeldedatenRecordList
+                                                            .isNotEmpty
+                                                        ? textAnmeldedatenRecordList
+                                                            .first
+                                                        : null;
+                                                return InkWell(
+                                                  onTap: () async {
+                                                    await Navigator.push(
+                                                      context,
+                                                      PageTransition(
+                                                        type: PageTransitionType
+                                                            .rightToLeft,
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        reverseDuration:
+                                                            Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                        child: BudgetWidget(),
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: Text(
+                                                    valueOrDefault<String>(
+                                                      formatNumber(
+                                                        FFAppState().budget,
+                                                        formatType:
+                                                            FormatType.decimal,
+                                                        decimalType: DecimalType
+                                                            .automatic,
+                                                        currency: '€',
+                                                      ),
+                                                      '0',
+                                                    ),
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Color(0xFFEE6060),
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
                                                   ),
                                                 );
                                               },
-                                              child: Text(
-                                                '-20,50€',
-                                                style: FlutterFlowTheme
-                                                    .bodyText1
-                                                    .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: Color(0xFFEE6060),
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
                                             ),
+                                          ),
+                                          FlutterFlowIconButton(
+                                            borderColor: Colors.transparent,
+                                            borderRadius: 30,
+                                            borderWidth: 1,
+                                            buttonSize: 46,
+                                            icon: Icon(
+                                              Icons.add_circle_sharp,
+                                              color: Color(0xFF8992FF),
+                                              size: 24,
+                                            ),
+                                            onPressed: () async {
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BudgetWidget(),
+                                                ),
+                                              );
+                                            },
                                           ),
                                         ],
                                       ),

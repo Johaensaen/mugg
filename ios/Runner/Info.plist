@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Mugg</string>
+	<string>bechio</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Mugg</string>
+	<string>bechio</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -27,7 +27,7 @@
             <string>Editor</string>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>com.googleusercontent.apps.1070130932530-gso6ajc812v9k5adper5cv5h9e2b9ucu</string>
+                <string>com.googleusercontent.apps.1070130932530-tc2hse8jc4773caemlf82m0qqgee9gsb</string>
                 
             </array>
         </dict>
@@ -38,12 +38,10 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 
-
-    <key>UIBackgroundModes</key>
-    <array>
-        <string>fetch</string>
-        <string>remote-notification</string>
-    </array>
+	<key>NSCameraUsageDescription</key>
+	<string>In order to take a picture or video, this app requires permission to access the camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>In order to upload media, this app requires permission to access the photo library.</string>
 
 
 	<key>UILaunchStoryboardName</key>

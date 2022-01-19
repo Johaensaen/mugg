@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
-import 'backend/push_notifications/push_notifications_util.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
-import 'package:mugg/login/login_widget.dart';
-import 'package:mugg/dashboard/dashboard_widget.dart';
+import 'package:bechio/login/login_widget.dart';
+import 'package:bechio/dashboard/dashboard_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -25,16 +25,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Stream<MuggFirebaseUser> userStream;
-  MuggFirebaseUser initialUser;
+  Stream<BechioFirebaseUser> userStream;
+  BechioFirebaseUser initialUser;
   bool displaySplashImage = true;
   final authUserSub = authenticatedUserStream.listen((_) {});
-  final fcmTokenSub = fcmTokenUserStream.listen((_) {});
 
   @override
   void initState() {
     super.initState();
-    userStream = muggFirebaseUserStream()
+    userStream = bechioFirebaseUserStream()
       ..listen((user) => initialUser ?? setState(() => initialUser = user));
     Future.delayed(
         Duration(seconds: 1), () => setState(() => displaySplashImage = false));
@@ -43,14 +42,14 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     authUserSub.cancel();
-    fcmTokenSub.cancel();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Mugg',
+      title: 'bechio',
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -63,13 +62,13 @@ class _MyAppState extends State<MyApp> {
               color: Colors.transparent,
               child: Builder(
                 builder: (context) => Image.asset(
-                  'assets/images/kisspng-coffee-cup-portable-network-graphics-cafe-to-go-coffee-cup-with-lid-h-3-2k-exprssoh-5d1ab9e1298889.6181831815620326091701.png',
-                  fit: BoxFit.contain,
+                  'assets/images/app_launcher_icon.png',
+                  fit: BoxFit.none,
                 ),
               ),
             )
           : currentUser.loggedIn
-              ? PushNotificationsHandler(child: DashboardWidget())
+              ? DashboardWidget()
               : LoginWidget(),
     );
   }

@@ -1,4 +1,4 @@
-package com.flutterflow.bechioblank
+package com.flutterflow.bechio
 
 import io.flutter.embedding.android.FlutterActivity
 

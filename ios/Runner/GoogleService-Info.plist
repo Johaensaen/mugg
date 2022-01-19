@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1070130932530-gso6ajc812v9k5adper5cv5h9e2b9ucu.apps.googleusercontent.com</string>
+	<string>1070130932530-tc2hse8jc4773caemlf82m0qqgee9gsb.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1070130932530-gso6ajc812v9k5adper5cv5h9e2b9ucu</string>
+	<string>com.googleusercontent.apps.1070130932530-tc2hse8jc4773caemlf82m0qqgee9gsb</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>1070130932530-78fahkmnfmmmb61b3l86j87l2a8enga7.apps.googleusercontent.com</string>
+	<string>1070130932530-1fqh9jffe32fo9urps4fh7naedbu47i9.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDbKr4Ay4ji0Grkn1i9NKfO8bk9MsufhUU</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.flutterflow.bechioblank</string>
+	<string>com.flutterflow.bechio</string>
 	<key>PROJECT_ID</key>
 	<string>bechio</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1070130932530:ios:172d09a63a85b1e52f852b</string>
+	<string>1:1070130932530:ios:0f0a3dbd81313be62f852b</string>
 </dict>
 </plist>
