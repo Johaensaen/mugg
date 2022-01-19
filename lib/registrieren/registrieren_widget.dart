@@ -356,78 +356,138 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                         ),
                       ),
                     ),
-                    FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30,
-                      borderWidth: 1,
-                      buttonSize: 46,
-                      icon: Icon(
-                        Icons.photo_camera_rounded,
-                        color: Color(0xFF8992FF),
-                        size: 24,
+                    StreamBuilder<List<UsersRecord>>(
+                      stream: queryUsersRecord(
+                        singleRecord: true,
                       ),
-                      onPressed: () async {
-                        final selectedMedia =
-                            await selectMediaWithSourceBottomSheet(
-                          context: context,
-                          allowPhoto: true,
-                          textColor: FlutterFlowTheme.tertiaryColor,
-                          pickerFontFamily: 'Poppins',
-                        );
-                        if (selectedMedia != null &&
-                            validateFileFormat(
-                                selectedMedia.storagePath, context)) {
-                          showUploadMessage(context, 'Uploading file...',
-                              showLoading: true);
-                          final downloadUrl = await uploadData(
-                              selectedMedia.storagePath, selectedMedia.bytes);
-                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          if (downloadUrl != null) {
-                            setState(() => uploadedFileUrl1 = downloadUrl);
-                            showUploadMessage(context, 'Success!');
-                          } else {
-                            showUploadMessage(
-                                context, 'Failed to upload media');
-                            return;
-                          }
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: SpinKitDoubleBounce(
+                                color: FlutterFlowTheme.primaryColor,
+                                size: 50,
+                              ),
+                            ),
+                          );
                         }
+                        List<UsersRecord> iconButtonUsersRecordList =
+                            snapshot.data;
+                        final iconButtonUsersRecord =
+                            iconButtonUsersRecordList.isNotEmpty
+                                ? iconButtonUsersRecordList.first
+                                : null;
+                        return FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 30,
+                          borderWidth: 1,
+                          buttonSize: 46,
+                          icon: Icon(
+                            Icons.photo_camera_rounded,
+                            color: Color(0xFF8992FF),
+                            size: 24,
+                          ),
+                          onPressed: () async {
+                            final selectedMedia =
+                                await selectMediaWithSourceBottomSheet(
+                              context: context,
+                              allowPhoto: true,
+                              textColor: FlutterFlowTheme.tertiaryColor,
+                              pickerFontFamily: 'Poppins',
+                            );
+                            if (selectedMedia != null &&
+                                validateFileFormat(
+                                    selectedMedia.storagePath, context)) {
+                              showUploadMessage(context, 'Uploading file...',
+                                  showLoading: true);
+                              final downloadUrl = await uploadData(
+                                  selectedMedia.storagePath,
+                                  selectedMedia.bytes);
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar();
+                              if (downloadUrl != null) {
+                                setState(() => uploadedFileUrl1 = downloadUrl);
+                                showUploadMessage(context, 'Success!');
+                              } else {
+                                showUploadMessage(
+                                    context, 'Failed to upload media');
+                                return;
+                              }
+                            }
+                          },
+                        );
                       },
                     ),
-                    FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30,
-                      borderWidth: 1,
-                      buttonSize: 46,
-                      icon: Icon(
-                        Icons.qr_code_rounded,
-                        color: Color(0xFF8992FF),
-                        size: 24,
+                    StreamBuilder<List<UsersRecord>>(
+                      stream: queryUsersRecord(
+                        singleRecord: true,
                       ),
-                      onPressed: () async {
-                        final selectedMedia =
-                            await selectMediaWithSourceBottomSheet(
-                          context: context,
-                          allowPhoto: true,
-                          textColor: FlutterFlowTheme.tertiaryColor,
-                          pickerFontFamily: 'Poppins',
-                        );
-                        if (selectedMedia != null &&
-                            validateFileFormat(
-                                selectedMedia.storagePath, context)) {
-                          showUploadMessage(context, 'Uploading file...',
-                              showLoading: true);
-                          final downloadUrl = await uploadData(
-                              selectedMedia.storagePath, selectedMedia.bytes);
-                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          if (downloadUrl != null) {
-                            setState(() => uploadedFileUrl2 = downloadUrl);
-                            showUploadMessage(context, 'Success!');
-                          } else {
-                            showUploadMessage(
-                                context, 'Failed to upload media');
-                            return;
-                          }
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: SpinKitDoubleBounce(
+                                color: FlutterFlowTheme.primaryColor,
+                                size: 50,
+                              ),
+                            ),
+                          );
                         }
+                        List<UsersRecord> ticketUploadUsersRecordList =
+                            snapshot.data;
+                        // Return an empty Container when the document does not exist.
+                        if (snapshot.data.isEmpty) {
+                          return Container();
+                        }
+                        final ticketUploadUsersRecord =
+                            ticketUploadUsersRecordList.isNotEmpty
+                                ? ticketUploadUsersRecordList.first
+                                : null;
+                        return FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 30,
+                          borderWidth: 1,
+                          buttonSize: 46,
+                          icon: Icon(
+                            Icons.qr_code_rounded,
+                            color: Color(0xFF8992FF),
+                            size: 24,
+                          ),
+                          onPressed: () async {
+                            final selectedMedia =
+                                await selectMediaWithSourceBottomSheet(
+                              context: context,
+                              allowPhoto: true,
+                              textColor: FlutterFlowTheme.tertiaryColor,
+                              pickerFontFamily: 'Poppins',
+                            );
+                            if (selectedMedia != null &&
+                                validateFileFormat(
+                                    selectedMedia.storagePath, context)) {
+                              showUploadMessage(context, 'Uploading file...',
+                                  showLoading: true);
+                              final downloadUrl = await uploadData(
+                                  selectedMedia.storagePath,
+                                  selectedMedia.bytes);
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar();
+                              if (downloadUrl != null) {
+                                setState(() => uploadedFileUrl2 = downloadUrl);
+                                showUploadMessage(context, 'Success!');
+                              } else {
+                                showUploadMessage(
+                                    context, 'Failed to upload media');
+                                return;
+                              }
+                            }
+                          },
+                        );
                       },
                     ),
                   ],
@@ -470,7 +530,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
 
                             final usersCreateData = createUsersRecordData(
                               email: '',
-                              displayName: '',
+                              displayName: anzeigenameController.text,
                               photoUrl: '',
                               uid: '',
                               createdTime: getCurrentTimestamp,
