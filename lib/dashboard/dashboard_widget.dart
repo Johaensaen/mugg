@@ -12,7 +12,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DashboardWidget extends StatefulWidget {
-  const DashboardWidget({Key key}) : super(key: key);
+  const DashboardWidget({
+    Key key,
+    this.uploaded,
+  }) : super(key: key);
+
+  final String uploaded;
 
   @override
   _DashboardWidgetState createState() => _DashboardWidgetState();
@@ -262,78 +267,88 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     8, 0, 0, 0),
-                                            child: StreamBuilder<
-                                                List<AnmeldedatenRecord>>(
-                                              stream: queryAnmeldedatenRecord(
-                                                singleRecord: true,
-                                              ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50,
-                                                      height: 50,
-                                                      child:
-                                                          SpinKitDoubleBounce(
-                                                        color: FlutterFlowTheme
-                                                            .primaryColor,
-                                                        size: 50,
+                                            child: AuthUserStreamWidget(
+                                              child: StreamBuilder<
+                                                  List<AnmeldedatenRecord>>(
+                                                stream: queryAnmeldedatenRecord(
+                                                  singleRecord: true,
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50,
+                                                        height: 50,
+                                                        child:
+                                                            SpinKitDoubleBounce(
+                                                          color:
+                                                              FlutterFlowTheme
+                                                                  .primaryColor,
+                                                          size: 50,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  List<AnmeldedatenRecord>
+                                                      textAnmeldedatenRecordList =
+                                                      snapshot.data;
+                                                  // Return an empty Container when the document does not exist.
+                                                  if (snapshot.data.isEmpty) {
+                                                    return Container();
+                                                  }
+                                                  final textAnmeldedatenRecord =
+                                                      textAnmeldedatenRecordList
+                                                              .isNotEmpty
+                                                          ? textAnmeldedatenRecordList
+                                                              .first
+                                                          : null;
+                                                  return InkWell(
+                                                    onTap: () async {
+                                                      await Navigator.push(
+                                                        context,
+                                                        PageTransition(
+                                                          type:
+                                                              PageTransitionType
+                                                                  .rightToLeft,
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  300),
+                                                          reverseDuration:
+                                                              Duration(
+                                                                  milliseconds:
+                                                                      300),
+                                                          child: BudgetWidget(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      valueOrDefault<String>(
+                                                        formatNumber(
+                                                          currentUserDocument
+                                                              ?.budget,
+                                                          formatType: FormatType
+                                                              .decimal,
+                                                          decimalType:
+                                                              DecimalType
+                                                                  .automatic,
+                                                          currency: '€',
+                                                        ),
+                                                        '0',
+                                                      ),
+                                                      style: FlutterFlowTheme
+                                                          .bodyText1
+                                                          .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            Color(0xFFEE6060),
+                                                        fontWeight:
+                                                            FontWeight.w600,
                                                       ),
                                                     ),
                                                   );
-                                                }
-                                                List<AnmeldedatenRecord>
-                                                    textAnmeldedatenRecordList =
-                                                    snapshot.data;
-                                                // Return an empty Container when the document does not exist.
-                                                if (snapshot.data.isEmpty) {
-                                                  return Container();
-                                                }
-                                                final textAnmeldedatenRecord =
-                                                    textAnmeldedatenRecordList
-                                                            .isNotEmpty
-                                                        ? textAnmeldedatenRecordList
-                                                            .first
-                                                        : null;
-                                                return InkWell(
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      PageTransition(
-                                                        type: PageTransitionType
-                                                            .rightToLeft,
-                                                        duration: Duration(
-                                                            milliseconds: 300),
-                                                        reverseDuration:
-                                                            Duration(
-                                                                milliseconds:
-                                                                    300),
-                                                        child: BudgetWidget(),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Text(
-                                                    formatNumber(
-                                                      textAnmeldedatenRecord
-                                                          .budget,
-                                                      formatType:
-                                                          FormatType.decimal,
-                                                      decimalType:
-                                                          DecimalType.automatic,
-                                                      currency: '€',
-                                                    ),
-                                                    style: FlutterFlowTheme
-                                                        .bodyText1
-                                                        .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Color(0xFFEE6060),
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
+                                                },
+                                              ),
                                             ),
                                           ),
                                           FlutterFlowIconButton(

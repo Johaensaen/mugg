@@ -32,11 +32,11 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get phoneNumber;
 
   @nullable
-  @BuiltValueField(wireName: 'ticket_url')
-  String get ticketUrl;
+  double get budget;
 
   @nullable
-  double get budget;
+  @BuiltValueField(wireName: 'ticket_url')
+  String get ticketUrl;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -48,8 +48,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..photoUrl = ''
     ..uid = ''
     ..phoneNumber = ''
-    ..ticketUrl = ''
-    ..budget = 0.0;
+    ..budget = 0.0
+    ..ticketUrl = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -79,8 +79,8 @@ Map<String, dynamic> createUsersRecordData({
   String uid,
   DateTime createdTime,
   String phoneNumber,
-  String ticketUrl,
   double budget,
+  String ticketUrl,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
@@ -91,5 +91,5 @@ Map<String, dynamic> createUsersRecordData({
           ..uid = uid
           ..createdTime = createdTime
           ..phoneNumber = phoneNumber
-          ..ticketUrl = ticketUrl
-          ..budget = budget));
+          ..budget = budget
+          ..ticketUrl = ticketUrl));

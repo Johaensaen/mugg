@@ -106,65 +106,35 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: StreamBuilder<List<AnmeldedatenRecord>>(
-                      stream: queryAnmeldedatenRecord(
-                        singleRecord: true,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: SpinKitDoubleBounce(
-                                color: FlutterFlowTheme.primaryColor,
-                                size: 50,
-                              ),
-                            ),
-                          );
-                        }
-                        List<AnmeldedatenRecord>
-                            textFieldAnmeldedatenRecordList = snapshot.data;
-                        // Return an empty Container when the document does not exist.
-                        if (snapshot.data.isEmpty) {
-                          return Container();
-                        }
-                        final textFieldAnmeldedatenRecord =
-                            textFieldAnmeldedatenRecordList.isNotEmpty
-                                ? textFieldAnmeldedatenRecordList.first
-                                : null;
-                        return TextFormField(
-                          controller: textController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Betrag eingeben',
-                            labelStyle: FlutterFlowTheme.bodyText1,
-                            hintText: '00,00',
-                            hintStyle: FlutterFlowTheme.bodyText1,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xFFDBE2E7),
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xFFDBE2E7),
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                    child: TextFormField(
+                      controller: textController,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelText: 'Betrag eingeben',
+                        labelStyle: FlutterFlowTheme.bodyText1,
+                        hintText: '00,00',
+                        hintStyle: FlutterFlowTheme.bodyText1,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFDBE2E7),
+                            width: 2,
                           ),
-                          style: FlutterFlowTheme.bodyText1,
-                          keyboardType: TextInputType.number,
-                        );
-                      },
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFDBE2E7),
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding:
+                            EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                      ),
+                      style: FlutterFlowTheme.bodyText1,
+                      keyboardType: TextInputType.number,
                     ),
                   ),
                   Padding(

@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/upload_media.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -79,9 +80,7 @@ class _TicketWidgetState extends State<TicketWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       StreamBuilder<List<UsersRecord>>(
-                        stream: queryUsersRecord(
-                          singleRecord: true,
-                        ),
+                        stream: queryUsersRecord(),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -98,14 +97,6 @@ class _TicketWidgetState extends State<TicketWidget> {
                           }
                           List<UsersRecord> iconButtonUsersRecordList =
                               snapshot.data;
-                          // Return an empty Container when the document does not exist.
-                          if (snapshot.data.isEmpty) {
-                            return Container();
-                          }
-                          final iconButtonUsersRecord =
-                              iconButtonUsersRecordList.isNotEmpty
-                                  ? iconButtonUsersRecordList.first
-                                  : null;
                           return FlutterFlowIconButton(
                             borderColor: Colors.transparent,
                             borderRadius: 30,
@@ -141,6 +132,35 @@ class _TicketWidgetState extends State<TicketWidget> {
                                   return;
                                 }
                               }
+
+                              final usersUpdateData = createUsersRecordData(
+                                ticketUrl: uploadedFileUrl,
+                              );
+                              await currentUserReference
+                                  .update(usersUpdateData);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Zum Aktualisieren bitte einmal wieder zum Dashboard und zurück :)',
+                                    style: GoogleFonts.getFont(
+                                      'Poppins',
+                                    ),
+                                  ),
+                                  duration: Duration(milliseconds: 4000),
+                                  backgroundColor: Color(0x00000000),
+                                ),
+                              );
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.leftToRight,
+                                  duration: Duration(milliseconds: 300),
+                                  reverseDuration: Duration(milliseconds: 300),
+                                  child: DashboardWidget(
+                                    uploaded: '',
+                                  ),
+                                ),
+                              );
                             },
                           );
                         },
@@ -201,16 +221,15 @@ class _TicketWidgetState extends State<TicketWidget> {
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(50, 50, 0, 0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
-                      valueOrDefault<String>(
-                        uploadedFileUrl,
-                        'Ticket fehlt',
+                  child: AuthUserStreamWidget(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        currentUserDocument?.ticketUrl,
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
                       ),
-                      width: 200,
-                      height: 200,
-                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
