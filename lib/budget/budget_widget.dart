@@ -184,8 +184,6 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                 children: [
                   FFButtonWidget(
                     onPressed: () async {
-                      setState(() => FFAppState().budget =
-                          double.parse(textController.text));
                       await Navigator.push(
                         context,
                         PageTransition(

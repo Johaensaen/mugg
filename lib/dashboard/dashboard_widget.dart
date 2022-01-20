@@ -314,17 +314,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                     );
                                                   },
                                                   child: Text(
-                                                    valueOrDefault<String>(
-                                                      formatNumber(
-                                                        FFAppState().budget,
-                                                        formatType:
-                                                            FormatType.decimal,
-                                                        decimalType: DecimalType
-                                                            .automatic,
-                                                        currency: '€',
-                                                      ),
-                                                      '0',
-                                                    ),
+                                                    '-20,50€',
                                                     style: FlutterFlowTheme
                                                         .bodyText1
                                                         .override(
