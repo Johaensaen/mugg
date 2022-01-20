@@ -18,13 +18,13 @@ class BudgetWidget extends StatefulWidget {
 }
 
 class _BudgetWidgetState extends State<BudgetWidget> {
-  TextEditingController textController;
+  TextEditingController betragaendernController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    betragaendernController = TextEditingController();
   }
 
   @override
@@ -106,35 +106,41 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: TextFormField(
-                      controller: textController,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        labelText: 'Betrag eingeben',
-                        labelStyle: FlutterFlowTheme.bodyText1,
-                        hintText: '00,00',
-                        hintStyle: FlutterFlowTheme.bodyText1,
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFDBE2E7),
-                            width: 2,
+                    child: AuthUserStreamWidget(
+                      child: TextFormField(
+                        controller: betragaendernController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: formatNumber(
+                            currentUserDocument?.budget,
+                            formatType: FormatType.decimal,
+                            decimalType: DecimalType.automatic,
                           ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFDBE2E7),
-                            width: 2,
+                          labelStyle: FlutterFlowTheme.bodyText1,
+                          hintText: '00,00',
+                          hintStyle: FlutterFlowTheme.bodyText1,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          borderRadius: BorderRadius.circular(8),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
                         ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding:
-                            EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                        style: FlutterFlowTheme.bodyText1,
+                        keyboardType: TextInputType.number,
                       ),
-                      style: FlutterFlowTheme.bodyText1,
-                      keyboardType: TextInputType.number,
                     ),
                   ),
                   Padding(
@@ -154,67 +160,37 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  StreamBuilder<List<AnmeldedatenRecord>>(
-                    stream: queryAnmeldedatenRecord(
-                      singleRecord: true,
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitDoubleBounce(
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 50,
-                            ),
-                          ),
-                        );
-                      }
-                      List<AnmeldedatenRecord> buttonAnmeldedatenRecordList =
-                          snapshot.data;
-                      // Return an empty Container when the document does not exist.
-                      if (snapshot.data.isEmpty) {
-                        return Container();
-                      }
-                      final buttonAnmeldedatenRecord =
-                          buttonAnmeldedatenRecordList.isNotEmpty
-                              ? buttonAnmeldedatenRecordList.first
-                              : null;
-                      return FFButtonWidget(
-                        onPressed: () async {
-                          final usersUpdateData = createUsersRecordData(
-                            budget: double.parse(textController.text),
-                          );
-                          await currentUserReference.update(usersUpdateData);
-                          await Navigator.push(
-                            context,
-                            PageTransition(
-                              type: PageTransitionType.leftToRight,
-                              duration: Duration(milliseconds: 300),
-                              reverseDuration: Duration(milliseconds: 300),
-                              child: DashboardWidget(),
-                            ),
-                          );
-                        },
-                        text: 'Speichern',
-                        options: FFButtonOptions(
-                          width: 130,
-                          height: 40,
-                          color: Color(0xFF8992FF),
-                          textStyle: FlutterFlowTheme.subtitle2.override(
-                            fontFamily: 'Poppins',
-                            color: Colors.white,
-                          ),
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1,
-                          ),
-                          borderRadius: 12,
+                  FFButtonWidget(
+                    onPressed: () async {
+                      final usersUpdateData = createUsersRecordData(
+                        budget: double.parse(betragaendernController.text),
+                      );
+                      await currentUserReference.update(usersUpdateData);
+                      await Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.leftToRight,
+                          duration: Duration(milliseconds: 300),
+                          reverseDuration: Duration(milliseconds: 300),
+                          child: DashboardWidget(),
                         ),
                       );
                     },
+                    text: 'Speichern',
+                    options: FFButtonOptions(
+                      width: 130,
+                      height: 40,
+                      color: Color(0xFF8992FF),
+                      textStyle: FlutterFlowTheme.subtitle2.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.white,
+                      ),
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
+                      ),
+                      borderRadius: 12,
+                    ),
                   ),
                 ],
               ),

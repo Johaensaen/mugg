@@ -138,27 +138,13 @@ class _TicketWidgetState extends State<TicketWidget> {
                               );
                               await currentUserReference
                                   .update(usersUpdateData);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Zum Aktualisieren bitte einmal wieder zum Dashboard und zurück :)',
-                                    style: GoogleFonts.getFont(
-                                      'Poppins',
-                                    ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor: Color(0x00000000),
-                                ),
-                              );
                               await Navigator.push(
                                 context,
                                 PageTransition(
-                                  type: PageTransitionType.leftToRight,
+                                  type: PageTransitionType.fade,
                                   duration: Duration(milliseconds: 300),
                                   reverseDuration: Duration(milliseconds: 300),
-                                  child: DashboardWidget(
-                                    uploaded: '',
-                                  ),
+                                  child: TicketWidget(),
                                 ),
                               );
                             },

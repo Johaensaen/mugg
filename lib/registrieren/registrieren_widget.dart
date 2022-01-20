@@ -1,12 +1,10 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../backend/firebase_storage/storage.dart';
 import '../dashboard/dashboard_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/upload_media.dart';
 import '../login/login_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -20,26 +18,26 @@ class RegistrierenWidget extends StatefulWidget {
 }
 
 class _RegistrierenWidgetState extends State<RegistrierenWidget> {
-  String uploadedFileUrl1 = '';
-  TextEditingController anzeigenameController;
-  String uploadedFileUrl2 = '';
+  TextEditingController budgetanController;
   TextEditingController emailAddressController;
   TextEditingController passwordController;
   bool passwordVisibility;
   TextEditingController passwordBestaetigenController;
   bool passwordBestaetigenVisibility;
+  TextEditingController nameController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    anzeigenameController = TextEditingController();
+    budgetanController = TextEditingController();
     emailAddressController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
     passwordBestaetigenController = TextEditingController();
     passwordBestaetigenVisibility = false;
+    nameController = TextEditingController();
   }
 
   @override
@@ -233,7 +231,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 24),
                       child: TextFormField(
                         controller: passwordBestaetigenController,
                         obscureText: !passwordBestaetigenVisibility,
@@ -296,25 +294,25 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: TextFormField(
-                          controller: anzeigenameController,
+                          controller: budgetanController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Anzeigename',
+                            labelText: 'Budget festlegen',
                             labelStyle: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Lexend Deca',
                               color: Color(0xFF95A1AC),
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
                             ),
-                            hintText: 'Vorname oder Nickname',
+                            hintText: '00,00',
                             hintStyle: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Lexend Deca',
                               color: Color(0xFF95A1AC),
@@ -346,6 +344,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
+                          keyboardType: TextInputType.number,
                           validator: (val) {
                             if (val.isEmpty) {
                               return 'Field is required';
@@ -356,143 +355,66 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                         ),
                       ),
                     ),
-                    StreamBuilder<List<UsersRecord>>(
-                      stream: queryUsersRecord(
-                        singleRecord: true,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: SpinKitDoubleBounce(
-                                color: FlutterFlowTheme.primaryColor,
-                                size: 50,
-                              ),
-                            ),
-                          );
-                        }
-                        List<UsersRecord> iconButtonUsersRecordList =
-                            snapshot.data;
-                        // Return an empty Container when the document does not exist.
-                        if (snapshot.data.isEmpty) {
-                          return Container();
-                        }
-                        final iconButtonUsersRecord =
-                            iconButtonUsersRecordList.isNotEmpty
-                                ? iconButtonUsersRecordList.first
-                                : null;
-                        return FlutterFlowIconButton(
-                          borderColor: Colors.transparent,
-                          borderRadius: 30,
-                          borderWidth: 1,
-                          buttonSize: 46,
-                          icon: Icon(
-                            Icons.photo_camera_rounded,
-                            color: Color(0xFF8992FF),
-                            size: 24,
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: nameController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Anzeigename',
+                          labelStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF95A1AC),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
                           ),
-                          onPressed: () async {
-                            final selectedMedia =
-                                await selectMediaWithSourceBottomSheet(
-                              context: context,
-                              allowPhoto: true,
-                              textColor: FlutterFlowTheme.tertiaryColor,
-                              pickerFontFamily: 'Poppins',
-                            );
-                            if (selectedMedia != null &&
-                                validateFileFormat(
-                                    selectedMedia.storagePath, context)) {
-                              showUploadMessage(context, 'Uploading file...',
-                                  showLoading: true);
-                              final downloadUrl = await uploadData(
-                                  selectedMedia.storagePath,
-                                  selectedMedia.bytes);
-                              ScaffoldMessenger.of(context)
-                                  .hideCurrentSnackBar();
-                              if (downloadUrl != null) {
-                                setState(() => uploadedFileUrl1 = downloadUrl);
-                                showUploadMessage(context, 'Success!');
-                              } else {
-                                showUploadMessage(
-                                    context, 'Failed to upload media');
-                                return;
-                              }
-                            }
-                          },
-                        );
-                      },
-                    ),
-                    StreamBuilder<List<UsersRecord>>(
-                      stream: queryUsersRecord(
-                        singleRecord: true,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: SpinKitDoubleBounce(
-                                color: FlutterFlowTheme.primaryColor,
-                                size: 50,
-                              ),
-                            ),
-                          );
-                        }
-                        List<UsersRecord> ticketUploadUsersRecordList =
-                            snapshot.data;
-                        // Return an empty Container when the document does not exist.
-                        if (snapshot.data.isEmpty) {
-                          return Container();
-                        }
-                        final ticketUploadUsersRecord =
-                            ticketUploadUsersRecordList.isNotEmpty
-                                ? ticketUploadUsersRecordList.first
-                                : null;
-                        return FlutterFlowIconButton(
-                          borderColor: Colors.transparent,
-                          borderRadius: 30,
-                          borderWidth: 1,
-                          buttonSize: 46,
-                          icon: Icon(
-                            Icons.qr_code_rounded,
-                            color: Color(0xFF8992FF),
-                            size: 24,
+                          hintText: 'Vorname oder Nickname',
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF95A1AC),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
                           ),
-                          onPressed: () async {
-                            final selectedMedia =
-                                await selectMediaWithSourceBottomSheet(
-                              context: context,
-                              allowPhoto: true,
-                              textColor: FlutterFlowTheme.tertiaryColor,
-                              pickerFontFamily: 'Poppins',
-                            );
-                            if (selectedMedia != null &&
-                                validateFileFormat(
-                                    selectedMedia.storagePath, context)) {
-                              showUploadMessage(context, 'Uploading file...',
-                                  showLoading: true);
-                              final downloadUrl = await uploadData(
-                                  selectedMedia.storagePath,
-                                  selectedMedia.bytes);
-                              ScaffoldMessenger.of(context)
-                                  .hideCurrentSnackBar();
-                              if (downloadUrl != null) {
-                                setState(() => uploadedFileUrl2 = downloadUrl);
-                                showUploadMessage(context, 'Success!');
-                              } else {
-                                showUploadMessage(
-                                    context, 'Failed to upload media');
-                                return;
-                              }
-                            }
-                          },
-                        );
-                      },
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFDBE2E7),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                        ),
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: Color(0xFF2B343A),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Field is required';
+                          }
+
+                          return null;
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -502,71 +424,68 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Align(
-                        alignment: AlignmentDirectional(1, 0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            if (!formKey.currentState.validate()) {
-                              return;
-                            }
-                            if (passwordController.text !=
-                                passwordBestaetigenController.text) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    "Passwords don't match!",
-                                  ),
-                                ),
-                              );
-                              return;
-                            }
-
-                            final user = await createAccountWithEmail(
-                              context,
-                              emailAddressController.text,
-                              passwordController.text,
-                            );
-                            if (user == null) {
-                              return;
-                            }
-
-                            final usersCreateData = createUsersRecordData(
-                              email: '',
-                              displayName: anzeigenameController.text,
-                              uid: '',
-                              createdTime: getCurrentTimestamp,
-                              phoneNumber: '',
-                            );
-                            await UsersRecord.collection
-                                .doc(user.uid)
-                                .update(usersCreateData);
-
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DashboardWidget(),
+                    FFButtonWidget(
+                      onPressed: () async {
+                        if (!formKey.currentState.validate()) {
+                          return;
+                        }
+                        if (passwordController.text !=
+                            passwordBestaetigenController.text) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "Passwords don't match!",
                               ),
-                              (r) => false,
-                            );
-                          },
-                          text: 'Weiter',
-                          options: FFButtonOptions(
-                            width: 130,
-                            height: 40,
-                            color: Color(0xFF8992FF),
-                            textStyle: FlutterFlowTheme.subtitle2.override(
-                              fontFamily: 'Poppins',
-                              color: Colors.white,
                             ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                            borderRadius: 12,
+                          );
+                          return;
+                        }
+
+                        final user = await createAccountWithEmail(
+                          context,
+                          emailAddressController.text,
+                          passwordController.text,
+                        );
+                        if (user == null) {
+                          return;
+                        }
+
+                        final usersCreateData = createUsersRecordData(
+                          email: emailAddressController.text,
+                          displayName: nameController.text,
+                          uid: '',
+                          createdTime: getCurrentTimestamp,
+                          phoneNumber: '',
+                          budget: double.parse(budgetanController.text),
+                        );
+                        await UsersRecord.collection
+                            .doc(user.uid)
+                            .update(usersCreateData);
+
+                        await Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DashboardWidget(),
                           ),
+                          (r) => false,
+                        );
+                      },
+                      text: 'Weiter',
+                      options: FFButtonOptions(
+                        width: 130,
+                        height: 40,
+                        color: Color(0xFF8992FF),
+                        textStyle: FlutterFlowTheme.subtitle2.override(
+                          fontFamily: 'Poppins',
+                          color: Colors.white,
                         ),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
+                        borderRadius: 12,
                       ),
                     ),
                   ],

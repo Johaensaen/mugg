@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/upload_media.dart';
+import '../login/login_widget.dart';
 import '../mitteilungen/mitteilungen_widget.dart';
 import '../ticket/ticket_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -52,58 +53,73 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              width: 32,
-                              height: 32,
-                              child: Stack(
-                                alignment: AlignmentDirectional(0, 0),
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8, 0, 0, 0),
-                                    child: AuthUserStreamWidget(
-                                      child: InkWell(
-                                        onTap: () async {
-                                          final selectedMedia =
-                                              await selectMediaWithSourceBottomSheet(
-                                            context: context,
-                                            allowPhoto: true,
-                                          );
-                                          if (selectedMedia != null &&
-                                              validateFileFormat(
-                                                  selectedMedia.storagePath,
-                                                  context)) {
-                                            showUploadMessage(
-                                                context, 'Uploading file...',
-                                                showLoading: true);
-                                            final downloadUrl =
-                                                await uploadData(
-                                                    selectedMedia.storagePath,
-                                                    selectedMedia.bytes);
-                                            ScaffoldMessenger.of(context)
-                                                .hideCurrentSnackBar();
-                                            if (downloadUrl != null) {
-                                              setState(() => uploadedFileUrl =
-                                                  downloadUrl);
-                                              showUploadMessage(
-                                                  context, 'Success!');
-                                            } else {
-                                              showUploadMessage(context,
-                                                  'Failed to upload media');
-                                              return;
-                                            }
-                                          }
+                            InkWell(
+                              onTap: () async {
+                                final selectedMedia =
+                                    await selectMediaWithSourceBottomSheet(
+                                  context: context,
+                                  allowPhoto: true,
+                                  pickerFontFamily: 'Poppins',
+                                );
+                                if (selectedMedia != null &&
+                                    validateFileFormat(
+                                        selectedMedia.storagePath, context)) {
+                                  showUploadMessage(
+                                      context, 'Uploading file...',
+                                      showLoading: true);
+                                  final downloadUrl = await uploadData(
+                                      selectedMedia.storagePath,
+                                      selectedMedia.bytes);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  if (downloadUrl != null) {
+                                    setState(
+                                        () => uploadedFileUrl = downloadUrl);
+                                    showUploadMessage(context, 'Success!');
+                                  } else {
+                                    showUploadMessage(
+                                        context, 'Failed to upload media');
+                                    return;
+                                  }
+                                }
 
-                                          final usersUpdateData =
-                                              createUsersRecordData(
-                                            photoUrl: uploadedFileUrl,
-                                          );
-                                          await currentUserReference
-                                              .update(usersUpdateData);
-                                        },
+                                final usersUpdateData = createUsersRecordData(
+                                  photoUrl: uploadedFileUrl,
+                                );
+                                await currentUserReference
+                                    .update(usersUpdateData);
+                                await Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.scale,
+                                    alignment: Alignment.bottomCenter,
+                                    duration: Duration(milliseconds: 300),
+                                    reverseDuration:
+                                        Duration(milliseconds: 300),
+                                    child: DashboardWidget(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 32,
+                                height: 32,
+                                child: Stack(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  children: [
+                                    Text(
+                                      'Bild',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        color: Color(0xFF8992FF),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: AuthUserStreamWidget(
                                         child: Container(
-                                          width: 32,
-                                          height: 32,
+                                          width: 40,
+                                          height: 40,
                                           clipBehavior: Clip.antiAlias,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
@@ -113,20 +129,13 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               currentUserPhoto,
                                               'Foto',
                                             ),
-                                            fit: BoxFit.fitWidth,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Bild',
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      color: Color(0xFF8992FF),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             Expanded(
@@ -315,86 +324,25 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     8, 0, 0, 0),
                                             child: AuthUserStreamWidget(
-                                              child: StreamBuilder<
-                                                  List<AnmeldedatenRecord>>(
-                                                stream: queryAnmeldedatenRecord(
-                                                  singleRecord: true,
+                                              child: Text(
+                                                valueOrDefault<String>(
+                                                  formatNumber(
+                                                    currentUserDocument?.budget,
+                                                    formatType:
+                                                        FormatType.decimal,
+                                                    decimalType:
+                                                        DecimalType.automatic,
+                                                    currency: '€',
+                                                  ),
+                                                  '0',
                                                 ),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 50,
-                                                        height: 50,
-                                                        child:
-                                                            SpinKitDoubleBounce(
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .primaryColor,
-                                                          size: 50,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  List<AnmeldedatenRecord>
-                                                      textAnmeldedatenRecordList =
-                                                      snapshot.data;
-                                                  // Return an empty Container when the document does not exist.
-                                                  if (snapshot.data.isEmpty) {
-                                                    return Container();
-                                                  }
-                                                  final textAnmeldedatenRecord =
-                                                      textAnmeldedatenRecordList
-                                                              .isNotEmpty
-                                                          ? textAnmeldedatenRecordList
-                                                              .first
-                                                          : null;
-                                                  return InkWell(
-                                                    onTap: () async {
-                                                      await Navigator.push(
-                                                        context,
-                                                        PageTransition(
-                                                          type:
-                                                              PageTransitionType
-                                                                  .rightToLeft,
-                                                          duration: Duration(
-                                                              milliseconds:
-                                                                  300),
-                                                          reverseDuration:
-                                                              Duration(
-                                                                  milliseconds:
-                                                                      300),
-                                                          child: BudgetWidget(),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Text(
-                                                      valueOrDefault<String>(
-                                                        formatNumber(
-                                                          currentUserDocument
-                                                              ?.budget,
-                                                          formatType: FormatType
-                                                              .decimal,
-                                                          decimalType:
-                                                              DecimalType
-                                                                  .automatic,
-                                                          currency: '€',
-                                                        ),
-                                                        '0',
-                                                      ),
-                                                      style: FlutterFlowTheme
-                                                          .bodyText1
-                                                          .override(
-                                                        fontFamily: 'Poppins',
-                                                        color:
-                                                            Color(0xFFEE6060),
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
+                                                style: FlutterFlowTheme
+                                                    .bodyText1
+                                                    .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFFEE6060),
+                                                  fontWeight: FontWeight.w600,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -411,9 +359,14 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                             onPressed: () async {
                                               await Navigator.push(
                                                 context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      BudgetWidget(),
+                                                PageTransition(
+                                                  type: PageTransitionType
+                                                      .rightToLeft,
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  reverseDuration: Duration(
+                                                      milliseconds: 300),
+                                                  child: BudgetWidget(),
                                                 ),
                                               );
                                             },
@@ -479,8 +432,15 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                       color: Color(0xFFEE6060),
                       size: 70,
                     ),
-                    onPressed: () {
-                      print('IconButton pressed ...');
+                    onPressed: () async {
+                      await signOut();
+                      await Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginWidget(),
+                        ),
+                        (r) => false,
+                      );
                     },
                   ),
                 ],
