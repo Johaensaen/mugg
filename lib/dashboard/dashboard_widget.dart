@@ -330,8 +330,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                     currentUserDocument?.budget,
                                                     formatType:
                                                         FormatType.decimal,
-                                                    decimalType:
-                                                        DecimalType.automatic,
+                                                    decimalType: DecimalType
+                                                        .periodDecimal,
                                                     currency: '€',
                                                   ),
                                                   '0',
@@ -340,7 +340,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                     .bodyText1
                                                     .override(
                                                   fontFamily: 'Poppins',
-                                                  color: Color(0xFFEE6060),
+                                                  color: Color(0xFF303030),
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                               ),

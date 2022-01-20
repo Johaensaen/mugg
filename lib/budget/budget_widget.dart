@@ -114,7 +114,7 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                           labelText: formatNumber(
                             currentUserDocument?.budget,
                             formatType: FormatType.decimal,
-                            decimalType: DecimalType.automatic,
+                            decimalType: DecimalType.periodDecimal,
                           ),
                           labelStyle: FlutterFlowTheme.bodyText1,
                           hintText: '00,00',
