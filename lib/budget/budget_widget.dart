@@ -184,10 +184,10 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                               : null;
                       return FFButtonWidget(
                         onPressed: () async {
-                          final anmeldedatenUpdateData =
-                              createAnmeldedatenRecordData();
-                          await buttonAnmeldedatenRecord.reference
-                              .update(anmeldedatenUpdateData);
+                          final usersUpdateData = createUsersRecordData(
+                            budget: double.parse(textController.text),
+                          );
+                          await currentUserReference.update(usersUpdateData);
                           await Navigator.push(
                             context,
                             PageTransition(

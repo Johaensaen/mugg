@@ -1,12 +1,14 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../budget/budget_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../login/login_widget.dart';
+import '../flutter_flow/upload_media.dart';
 import '../mitteilungen/mitteilungen_widget.dart';
 import '../ticket/ticket_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,6 +26,7 @@ class DashboardWidget extends StatefulWidget {
 }
 
 class _DashboardWidgetState extends State<DashboardWidget> {
+  String uploadedFileUrl = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -49,37 +52,81 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                              child: AuthUserStreamWidget(
-                                child: InkWell(
-                                  onTap: () async {
-                                    await signOut();
-                                    await Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => LoginWidget(),
+                            Container(
+                              width: 32,
+                              height: 32,
+                              child: Stack(
+                                alignment: AlignmentDirectional(0, 0),
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8, 0, 0, 0),
+                                    child: AuthUserStreamWidget(
+                                      child: InkWell(
+                                        onTap: () async {
+                                          final selectedMedia =
+                                              await selectMediaWithSourceBottomSheet(
+                                            context: context,
+                                            allowPhoto: true,
+                                          );
+                                          if (selectedMedia != null &&
+                                              validateFileFormat(
+                                                  selectedMedia.storagePath,
+                                                  context)) {
+                                            showUploadMessage(
+                                                context, 'Uploading file...',
+                                                showLoading: true);
+                                            final downloadUrl =
+                                                await uploadData(
+                                                    selectedMedia.storagePath,
+                                                    selectedMedia.bytes);
+                                            ScaffoldMessenger.of(context)
+                                                .hideCurrentSnackBar();
+                                            if (downloadUrl != null) {
+                                              setState(() => uploadedFileUrl =
+                                                  downloadUrl);
+                                              showUploadMessage(
+                                                  context, 'Success!');
+                                            } else {
+                                              showUploadMessage(context,
+                                                  'Failed to upload media');
+                                              return;
+                                            }
+                                          }
+
+                                          final usersUpdateData =
+                                              createUsersRecordData(
+                                            photoUrl: uploadedFileUrl,
+                                          );
+                                          await currentUserReference
+                                              .update(usersUpdateData);
+                                        },
+                                        child: Container(
+                                          width: 32,
+                                          height: 32,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            valueOrDefault<String>(
+                                              currentUserPhoto,
+                                              'Foto',
+                                            ),
+                                            fit: BoxFit.fitWidth,
+                                          ),
+                                        ),
                                       ),
-                                      (r) => false,
-                                    );
-                                  },
-                                  child: Container(
-                                    width: 32,
-                                    height: 32,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      valueOrDefault<String>(
-                                        currentUserPhoto,
-                                        'Foto',
-                                      ),
-                                      fit: BoxFit.fitWidth,
                                     ),
                                   ),
-                                ),
+                                  Text(
+                                    'Bild',
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF8992FF),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             Expanded(
