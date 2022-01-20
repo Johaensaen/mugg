@@ -15,10 +15,6 @@ abstract class AnmeldedatenRecord
   String get email;
 
   @nullable
-  @BuiltValueField(wireName: 'display_name')
-  String get displayName;
-
-  @nullable
   @BuiltValueField(wireName: 'photo_url')
   String get photoUrl;
 
@@ -45,7 +41,6 @@ abstract class AnmeldedatenRecord
 
   static void _initializeBuilder(AnmeldedatenRecordBuilder builder) => builder
     ..email = ''
-    ..displayName = ''
     ..photoUrl = ''
     ..uid = ''
     ..phoneNumber = ''
@@ -76,7 +71,6 @@ abstract class AnmeldedatenRecord
 
 Map<String, dynamic> createAnmeldedatenRecordData({
   String email,
-  String displayName,
   String photoUrl,
   String uid,
   DateTime createdTime,
@@ -88,7 +82,6 @@ Map<String, dynamic> createAnmeldedatenRecordData({
         AnmeldedatenRecord.serializer,
         AnmeldedatenRecord((a) => a
           ..email = email
-          ..displayName = displayName
           ..photoUrl = photoUrl
           ..uid = uid
           ..createdTime = createdTime

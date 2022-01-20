@@ -106,8 +106,8 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
-                    child: StreamBuilder<List<UsersRecord>>(
-                      stream: queryUsersRecord(
+                    child: StreamBuilder<List<AnmeldedatenRecord>>(
+                      stream: queryAnmeldedatenRecord(
                         singleRecord: true,
                       ),
                       builder: (context, snapshot) {
@@ -124,15 +124,15 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                             ),
                           );
                         }
-                        List<UsersRecord> textFieldUsersRecordList =
-                            snapshot.data;
+                        List<AnmeldedatenRecord>
+                            textFieldAnmeldedatenRecordList = snapshot.data;
                         // Return an empty Container when the document does not exist.
                         if (snapshot.data.isEmpty) {
                           return Container();
                         }
-                        final textFieldUsersRecord =
-                            textFieldUsersRecordList.isNotEmpty
-                                ? textFieldUsersRecordList.first
+                        final textFieldAnmeldedatenRecord =
+                            textFieldAnmeldedatenRecordList.isNotEmpty
+                                ? textFieldAnmeldedatenRecordList.first
                                 : null;
                         return TextFormField(
                           controller: textController,
@@ -214,6 +214,10 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                               : null;
                       return FFButtonWidget(
                         onPressed: () async {
+                          final anmeldedatenUpdateData =
+                              createAnmeldedatenRecordData();
+                          await buttonAnmeldedatenRecord.reference
+                              .update(anmeldedatenUpdateData);
                           await Navigator.push(
                             context,
                             PageTransition(
@@ -223,10 +227,6 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                               child: DashboardWidget(),
                             ),
                           );
-                          final anmeldedatenUpdateData =
-                              createAnmeldedatenRecordData();
-                          await buttonAnmeldedatenRecord.reference
-                              .update(anmeldedatenUpdateData);
                         },
                         text: 'Speichern',
                         options: FFButtonOptions(

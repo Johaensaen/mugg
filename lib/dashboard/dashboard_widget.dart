@@ -85,7 +85,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                   child: Text(
                                     valueOrDefault<String>(
                                       currentUserDisplayName,
-                                      'Fehlt',
+                                      'Name',
                                     ),
                                     textAlign: TextAlign.start,
                                     style: FlutterFlowTheme.bodyText1.override(

@@ -79,7 +79,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                                 child: Text(
-                                  'Schön das du da bist.\n\nBitte melde dich als erstes an um \ndie Funktionen von Cupio nutzen \nzu können. ',
+                                  'Schön, dass du da bist!\n\nBitte melde dich als erstes an,\num die Funktionen von Mugg nutzen \nzu können. ',
                                   style: FlutterFlowTheme.bodyText1.override(
                                     fontFamily: 'Poppins',
                                     fontSize: 16,
@@ -167,7 +167,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         16, 0, 0, 32),
                                     child: Text(
-                                      'Dadurch kannst du Service von Capio in \nvollem Umpfang nutzen.',
+                                      'Um den Service von Mugg vollständig \nzu nutzen, ist ein Konto erforderlich:',
                                       style:
                                           FlutterFlowTheme.bodyText1.override(
                                         fontFamily: 'Poppins',
@@ -424,7 +424,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16, 40, 16, 0),
                                   child: Text(
-                                    'Oder melde dich über ein soziales Konto an.',
+                                    'Oder melde dich über ein soziales Konto an:',
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.bodyText1.override(
                                       fontFamily: 'Poppins',
@@ -937,17 +937,28 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     16, 16, 0, 0),
                                 child: Text(
-                                  'Finde unsere Partner  ᐳ',
+                                  'Unsere Partner',
                                   style: FlutterFlowTheme.bodyText1.override(
                                     fontFamily: 'Poppins',
                                     color: Color(0xFF8992FF),
                                     fontWeight: FontWeight.w500,
                                   ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(1, 0, 0, 0),
+                                child: Icon(
+                                  Icons.arrow_forward_rounded,
+                                  color: Color(0xFF8992FF),
+                                  size: 20,
                                 ),
                               ),
                             ],
