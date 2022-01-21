@@ -39,6 +39,18 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get ticketUrl;
 
   @nullable
+  @BuiltValueField(wireName: 'bluetooth_distance')
+  double get bluetoothDistance;
+
+  @nullable
+  @BuiltValueField(wireName: 'bluetooth_device_name')
+  String get bluetoothDeviceName;
+
+  @nullable
+  @BuiltValueField(wireName: 'distance_color_url')
+  String get distanceColorUrl;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -49,7 +61,10 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..uid = ''
     ..phoneNumber = ''
     ..budget = 0.0
-    ..ticketUrl = '';
+    ..ticketUrl = ''
+    ..bluetoothDistance = 0.0
+    ..bluetoothDeviceName = ''
+    ..distanceColorUrl = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -81,6 +96,9 @@ Map<String, dynamic> createUsersRecordData({
   String phoneNumber,
   double budget,
   String ticketUrl,
+  double bluetoothDistance,
+  String bluetoothDeviceName,
+  String distanceColorUrl,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
@@ -92,4 +110,7 @@ Map<String, dynamic> createUsersRecordData({
           ..createdTime = createdTime
           ..phoneNumber = phoneNumber
           ..budget = budget
-          ..ticketUrl = ticketUrl));
+          ..ticketUrl = ticketUrl
+          ..bluetoothDistance = bluetoothDistance
+          ..bluetoothDeviceName = bluetoothDeviceName
+          ..distanceColorUrl = distanceColorUrl));

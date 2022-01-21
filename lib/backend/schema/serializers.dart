@@ -1,7 +1,7 @@
 import 'package:built_value/standard_json_plugin.dart';
 
-import 'anmeldedaten_record.dart';
 import 'users_record.dart';
+import 'bluetooth_record.dart';
 
 import 'index.dart';
 
@@ -12,8 +12,8 @@ part 'serializers.g.dart';
 const kDocumentReferenceField = 'Document__Reference__Field';
 
 @SerializersFor(const [
-  AnmeldedatenRecord,
   UsersRecord,
+  BluetoothRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

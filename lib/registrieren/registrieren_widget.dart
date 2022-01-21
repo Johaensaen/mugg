@@ -18,7 +18,7 @@ class RegistrierenWidget extends StatefulWidget {
 }
 
 class _RegistrierenWidgetState extends State<RegistrierenWidget> {
-  TextEditingController budgetanController;
+  TextEditingController budgetangebenController;
   TextEditingController emailAddressController;
   TextEditingController passwordController;
   bool passwordVisibility;
@@ -31,7 +31,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
   @override
   void initState() {
     super.initState();
-    budgetanController = TextEditingController();
+    budgetangebenController = TextEditingController();
     emailAddressController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
@@ -302,7 +302,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: TextFormField(
-                          controller: budgetanController,
+                          controller: budgetangebenController,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Budget festlegen',
@@ -312,7 +312,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
                             ),
-                            hintText: '00,00',
+                            hintText: '00.00',
                             hintStyle: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Lexend Deca',
                               color: Color(0xFF95A1AC),
@@ -458,7 +458,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                           uid: '',
                           createdTime: getCurrentTimestamp,
                           phoneNumber: '',
-                          budget: double.parse(budgetanController.text),
+                          budget: double.parse(budgetangebenController.text),
                         );
                         await UsersRecord.collection
                             .doc(user.uid)

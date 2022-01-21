@@ -151,7 +151,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                     textAlign: TextAlign.start,
                                     style: FlutterFlowTheme.bodyText1.override(
                                       fontFamily: 'Poppins',
-                                      fontSize: 24,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -257,12 +257,26 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     8, 0, 0, 0),
-                                            child: Container(
-                                              width: 16,
-                                              height: 16,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xCD97EE60),
-                                                shape: BoxShape.circle,
+                                            child: InkWell(
+                                              onTap: () async {
+                                                await signOut();
+                                                await Navigator
+                                                    .pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LoginWidget(),
+                                                  ),
+                                                  (r) => false,
+                                                );
+                                              },
+                                              child: Container(
+                                                width: 16,
+                                                height: 16,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xCD97EE60),
+                                                  shape: BoxShape.circle,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -400,7 +414,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
                     child: Text(
                       'Entfernung',
-                      style: FlutterFlowTheme.title1,
+                      style: FlutterFlowTheme.title1.override(
+                        fontFamily: 'Poppins',
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ],
@@ -409,11 +426,18 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    '1 Meter',
-                    style: FlutterFlowTheme.bodyText1.override(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
+                  AuthUserStreamWidget(
+                    child: Text(
+                      formatNumber(
+                        currentUserDocument?.bluetoothDistance,
+                        formatType: FormatType.decimal,
+                        decimalType: DecimalType.periodDecimal,
+                        currency: 'Meter ',
+                      ),
+                      style: FlutterFlowTheme.bodyText1.override(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],
@@ -422,26 +446,16 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30,
-                    borderWidth: 1,
-                    buttonSize: 100,
-                    icon: Icon(
-                      Icons.navigation_rounded,
-                      color: Color(0xFFEE6060),
-                      size: 70,
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                    child: AuthUserStreamWidget(
+                      child: Image.network(
+                        currentUserDocument?.distanceColorUrl,
+                        width: 70,
+                        height: 70,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    onPressed: () async {
-                      await signOut();
-                      await Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginWidget(),
-                        ),
-                        (r) => false,
-                      );
-                    },
                   ),
                 ],
               ),

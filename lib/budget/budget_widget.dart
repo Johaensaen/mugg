@@ -117,7 +117,7 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                             decimalType: DecimalType.periodDecimal,
                           ),
                           labelStyle: FlutterFlowTheme.bodyText1,
-                          hintText: '00,00',
+                          hintText: '00.00',
                           hintStyle: FlutterFlowTheme.bodyText1,
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(

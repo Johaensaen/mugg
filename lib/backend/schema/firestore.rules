@@ -12,7 +12,7 @@ service cloud.firestore {
 
     // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
     // security rules for this collection before publishing your app.
-    match /Anmeldedaten/{id} {
+    match /bluetooth/{id} {
       allow read, write: if true;
     }
   }
