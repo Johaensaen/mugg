@@ -158,35 +158,35 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                 ),
                               ),
                             ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                              child: FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 30,
+                                buttonSize: 46,
+                                icon: Icon(
+                                  Icons.qr_code_rounded,
+                                  color: Color(0xFF8992FF),
+                                  size: 24,
+                                ),
+                                onPressed: () async {
+                                  await Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      duration: Duration(milliseconds: 300),
+                                      reverseDuration:
+                                          Duration(milliseconds: 300),
+                                      child: TicketWidget(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 4, 0),
-                                  child: FlutterFlowIconButton(
-                                    borderColor: Colors.transparent,
-                                    borderRadius: 30,
-                                    buttonSize: 46,
-                                    icon: Icon(
-                                      Icons.qr_code_rounded,
-                                      color: Color(0xFF8992FF),
-                                      size: 24,
-                                    ),
-                                    onPressed: () async {
-                                      await Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.rightToLeft,
-                                          duration: Duration(milliseconds: 300),
-                                          reverseDuration:
-                                              Duration(milliseconds: 300),
-                                          child: TicketWidget(),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
                                 FlutterFlowIconButton(
                                   borderColor: Colors.transparent,
                                   borderRadius: 30,
@@ -221,7 +221,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           color: Color(0xFFF5F5F5),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 48, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -290,8 +290,18 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               color: Color(0x4D9E9E9E),
                                               size: 24,
                                             ),
-                                            onPressed: () {
-                                              print('IconButton pressed ...');
+                                            onPressed: () async {
+                                              await Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  duration:
+                                                      Duration(milliseconds: 0),
+                                                  reverseDuration:
+                                                      Duration(milliseconds: 0),
+                                                  child: DashboardWidget(),
+                                                ),
+                                              );
                                             },
                                           ),
                                         ],
@@ -311,12 +321,19 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     8, 0, 0, 0),
-                                            child: Text(
-                                              '78%',
-                                              style: FlutterFlowTheme.bodyText1
-                                                  .override(
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.w600,
+                                            child: AuthUserStreamWidget(
+                                              child: Text(
+                                                formatNumber(
+                                                  currentUserDocument?.humidity,
+                                                  formatType:
+                                                      FormatType.percent,
+                                                ),
+                                                style: FlutterFlowTheme
+                                                    .bodyText1
+                                                    .override(
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.w600,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -345,7 +362,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                     formatType:
                                                         FormatType.decimal,
                                                     decimalType: DecimalType
-                                                        .periodDecimal,
+                                                        .commaDecimal,
                                                     currency: '€',
                                                   ),
                                                   '0',
@@ -429,9 +446,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                   AuthUserStreamWidget(
                     child: Text(
                       formatNumber(
-                        currentUserDocument?.bluetoothDistance,
+                        currentUserDocument?.temperature,
                         formatType: FormatType.decimal,
-                        decimalType: DecimalType.periodDecimal,
+                        decimalType: DecimalType.commaDecimal,
                         currency: 'Meter ',
                       ),
                       style: FlutterFlowTheme.bodyText1.override(
@@ -446,16 +463,69 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-                    child: AuthUserStreamWidget(
-                      child: Image.network(
-                        currentUserDocument?.distanceColorUrl,
-                        width: 70,
-                        height: 70,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                  Stack(
+                    children: [
+                      if ((currentUserDocument?.temperature) >= 5.0)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                          child: AuthUserStreamWidget(
+                            child: Image.asset(
+                              'assets/images/gruen@4x.png',
+                              width: 70,
+                              height: 70,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      if ((currentUserDocument?.temperature) >= 10.0)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                          child: AuthUserStreamWidget(
+                            child: Image.asset(
+                              'assets/images/gelbgruen@4x.png',
+                              width: 70,
+                              height: 70,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      if ((currentUserDocument?.temperature) >= 15.0)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                          child: AuthUserStreamWidget(
+                            child: Image.asset(
+                              'assets/images/gelb@4x.png',
+                              width: 70,
+                              height: 70,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      if ((currentUserDocument?.temperature) >= 20.0)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                          child: AuthUserStreamWidget(
+                            child: Image.asset(
+                              'assets/images/orange@4x.png',
+                              width: 70,
+                              height: 70,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      if ((currentUserDocument?.temperature) >= 25.0)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                          child: AuthUserStreamWidget(
+                            child: Image.asset(
+                              'assets/images/rot@4x.png',
+                              width: 70,
+                              height: 70,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ],
               ),

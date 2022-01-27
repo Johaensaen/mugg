@@ -114,10 +114,10 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                           labelText: formatNumber(
                             currentUserDocument?.budget,
                             formatType: FormatType.decimal,
-                            decimalType: DecimalType.periodDecimal,
+                            decimalType: DecimalType.commaDecimal,
                           ),
                           labelStyle: FlutterFlowTheme.bodyText1,
-                          hintText: '00.00',
+                          hintText: '00.00 (Punkt statt Komma)',
                           hintStyle: FlutterFlowTheme.bodyText1,
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(

@@ -18,26 +18,26 @@ class RegistrierenWidget extends StatefulWidget {
 }
 
 class _RegistrierenWidgetState extends State<RegistrierenWidget> {
-  TextEditingController budgetangebenController;
+  TextEditingController betragController;
+  TextEditingController nameController;
   TextEditingController emailAddressController;
   TextEditingController passwordController;
   bool passwordVisibility;
   TextEditingController passwordBestaetigenController;
   bool passwordBestaetigenVisibility;
-  TextEditingController nameController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    budgetangebenController = TextEditingController();
+    betragController = TextEditingController();
+    nameController = TextEditingController();
     emailAddressController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
     passwordBestaetigenController = TextEditingController();
     passwordBestaetigenVisibility = false;
-    nameController = TextEditingController();
   }
 
   @override
@@ -294,15 +294,72 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
+                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
                         child: TextFormField(
-                          controller: budgetangebenController,
+                          controller: nameController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Anzeigename',
+                            labelStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0xFF95A1AC),
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            hintText: 'Vorname oder Nickname',
+                            hintStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0xFF95A1AC),
+                              fontSize: 14,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFDBE2E7),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFDBE2E7),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
+                          ),
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFF2B343A),
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          validator: (val) {
+                            if (val.isEmpty) {
+                              return 'Field is required';
+                            }
+
+                            return null;
+                          },
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                        child: TextFormField(
+                          controller: betragController,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Budget festlegen',
@@ -312,7 +369,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
                             ),
-                            hintText: '00.00',
+                            hintText: '00.00 (Punkt statt Komma)',
                             hintStyle: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Lexend Deca',
                               color: Color(0xFF95A1AC),
@@ -359,67 +416,6 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: nameController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Anzeigename',
-                          labelStyle: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: Color(0xFF95A1AC),
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          hintText: 'Vorname oder Nickname',
-                          hintStyle: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: Color(0xFF95A1AC),
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFDBE2E7),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFDBE2E7),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(16, 24, 0, 24),
-                        ),
-                        style: FlutterFlowTheme.bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Color(0xFF2B343A),
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return 'Field is required';
-                          }
-
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -431,6 +427,15 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                         if (!formKey.currentState.validate()) {
                           return;
                         }
+                        await Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 300),
+                            reverseDuration: Duration(milliseconds: 300),
+                            child: DashboardWidget(),
+                          ),
+                        );
                         if (passwordController.text !=
                             passwordBestaetigenController.text) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -458,25 +463,19 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                           uid: '',
                           createdTime: getCurrentTimestamp,
                           phoneNumber: '',
-                          budget: double.parse(budgetangebenController.text),
+                          budget: double.parse(betragController.text),
+                          temperature: 0.0,
+                          humidity: 0.0,
                         );
                         await UsersRecord.collection
                             .doc(user.uid)
                             .update(usersCreateData);
-
-                        await Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DashboardWidget(),
-                          ),
-                          (r) => false,
-                        );
                       },
                       text: 'Weiter',
                       options: FFButtonOptions(
                         width: 130,
                         height: 40,
-                        color: Color(0xFF8992FF),
+                        color: FlutterFlowTheme.primaryColor,
                         textStyle: FlutterFlowTheme.subtitle2.override(
                           fontFamily: 'Poppins',
                           color: Colors.white,

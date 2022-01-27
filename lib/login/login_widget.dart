@@ -661,19 +661,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                AuthUserStreamWidget(
-                                                  child: Text(
-                                                    currentUserDocument
-                                                        ?.bluetoothDeviceName,
-                                                    style: FlutterFlowTheme
-                                                        .bodyText2
-                                                        .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: Colors.black,
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                    ),
+                                                Text(
+                                                  'Becher x1z1',
+                                                  style: FlutterFlowTheme
+                                                      .bodyText2
+                                                      .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Colors.black,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.normal,
                                                   ),
                                                 ),
                                                 Text(
