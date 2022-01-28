@@ -224,195 +224,287 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0, 50, 0, 50),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 0, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 0, 0),
-                                            child: Text(
-                                              'Verbunden',
-                                              style: FlutterFlowTheme.bodyText1
-                                                  .override(
-                                                fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 0, 0),
-                                            child: InkWell(
-                                              onTap: () async {
-                                                await signOut();
-                                                await Navigator
-                                                    .pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        LoginWidget(),
+                              Stack(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 50, 0, 50),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8, 0, 0, 0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(8, 0, 0, 0),
+                                                child: Text(
+                                                  'Verbunden',
+                                                  style: FlutterFlowTheme
+                                                      .bodyText1
+                                                      .override(
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.w600,
                                                   ),
-                                                  (r) => false,
-                                                );
-                                              },
-                                              child: Container(
-                                                width: 16,
-                                                height: 16,
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xCD97EE60),
-                                                  shape: BoxShape.circle,
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                          FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 30,
-                                            borderWidth: 1,
-                                            buttonSize: 46,
-                                            icon: Icon(
-                                              Icons.refresh,
-                                              color: Color(0x4D9E9E9E),
-                                              size: 24,
-                                            ),
-                                            onPressed: () async {
-                                              await Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                  type: PageTransitionType.fade,
-                                                  duration:
-                                                      Duration(milliseconds: 0),
-                                                  reverseDuration:
-                                                      Duration(milliseconds: 0),
-                                                  child: DashboardWidget(),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16, 0, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            'Batterie',
-                                            style: FlutterFlowTheme.bodyText1,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 0, 0),
-                                            child: AuthUserStreamWidget(
-                                              child: Text(
-                                                formatNumber(
-                                                  currentUserDocument?.humidity,
-                                                  formatType:
-                                                      FormatType.percent,
-                                                ),
-                                                style: FlutterFlowTheme
-                                                    .bodyText1
-                                                    .override(
-                                                  fontFamily: 'Poppins',
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16, 0, 0, 0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Text(
-                                            'Budget',
-                                            style: FlutterFlowTheme.bodyText1,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8, 0, 0, 0),
-                                            child: AuthUserStreamWidget(
-                                              child: Text(
-                                                valueOrDefault<String>(
-                                                  formatNumber(
-                                                    currentUserDocument?.budget,
-                                                    formatType:
-                                                        FormatType.decimal,
-                                                    decimalType: DecimalType
-                                                        .commaDecimal,
-                                                    currency: '€',
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(8, 0, 0, 0),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    await signOut();
+                                                    await Navigator
+                                                        .pushAndRemoveUntil(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LoginWidget(),
+                                                      ),
+                                                      (r) => false,
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    width: 16,
+                                                    height: 16,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xCD97EE60),
+                                                      shape: BoxShape.circle,
+                                                    ),
                                                   ),
-                                                  '0',
-                                                ),
-                                                style: FlutterFlowTheme
-                                                    .bodyText1
-                                                    .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: Color(0xFF303030),
-                                                  fontWeight: FontWeight.w600,
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                          FlutterFlowIconButton(
-                                            borderColor: Colors.transparent,
-                                            borderRadius: 30,
-                                            borderWidth: 1,
-                                            buttonSize: 46,
-                                            icon: Icon(
-                                              Icons.add_circle_sharp,
-                                              color: Color(0xFF8992FF),
-                                              size: 24,
-                                            ),
-                                            onPressed: () async {
-                                              await Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                  type: PageTransitionType
-                                                      .rightToLeft,
-                                                  duration: Duration(
-                                                      milliseconds: 300),
-                                                  reverseDuration: Duration(
-                                                      milliseconds: 300),
-                                                  child: BudgetWidget(),
+                                              FlutterFlowIconButton(
+                                                borderColor: Colors.transparent,
+                                                borderRadius: 30,
+                                                borderWidth: 1,
+                                                buttonSize: 46,
+                                                icon: Icon(
+                                                  Icons.refresh,
+                                                  color: Color(0x4D9E9E9E),
+                                                  size: 24,
                                                 ),
-                                              );
-                                            },
+                                                onPressed: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    PageTransition(
+                                                      type: PageTransitionType
+                                                          .fade,
+                                                      duration: Duration(
+                                                          milliseconds: 0),
+                                                      reverseDuration: Duration(
+                                                          milliseconds: 0),
+                                                      child: DashboardWidget(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ],
                                           ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16, 0, 0, 0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                'Batterie',
+                                                style:
+                                                    FlutterFlowTheme.bodyText1,
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(8, 0, 0, 0),
+                                                child: AuthUserStreamWidget(
+                                                  child: Text(
+                                                    formatNumber(
+                                                      currentUserDocument
+                                                          ?.humidity,
+                                                      formatType:
+                                                          FormatType.percent,
+                                                    ),
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16, 0, 0, 0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                'Budget',
+                                                style:
+                                                    FlutterFlowTheme.bodyText1,
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(8, 0, 0, 0),
+                                                child: AuthUserStreamWidget(
+                                                  child: Text(
+                                                    valueOrDefault<String>(
+                                                      formatNumber(
+                                                        currentUserDocument
+                                                            ?.budget,
+                                                        formatType:
+                                                            FormatType.decimal,
+                                                        decimalType: DecimalType
+                                                            .commaDecimal,
+                                                        currency: '€',
+                                                      ),
+                                                      '0',
+                                                    ),
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Color(0xFF303030),
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              FlutterFlowIconButton(
+                                                borderColor: Colors.transparent,
+                                                borderRadius: 30,
+                                                borderWidth: 1,
+                                                buttonSize: 46,
+                                                icon: Icon(
+                                                  Icons.add_circle_sharp,
+                                                  color: Color(0xFF8992FF),
+                                                  size: 24,
+                                                ),
+                                                onPressed: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    PageTransition(
+                                                      type: PageTransitionType
+                                                          .rightToLeft,
+                                                      duration: Duration(
+                                                          milliseconds: 300),
+                                                      reverseDuration: Duration(
+                                                          milliseconds: 300),
+                                                      child: BudgetWidget(),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              0.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/standard.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              5.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/gruen_becher.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              10.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/guengelb_becher.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              15.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/gelb_becher.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              20.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/orange_becher.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              25.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/rot_becher.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
                                         ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Image.asset(
-                                'assets/images/kisspng-coffee-cup-portable-network-graphics-cafe-to-go-coffee-cup-with-lid-h-3-2k-exprssoh-5d1ab9e1298889.6181831815620326091701.png',
-                                width: 400,
-                                height: double.infinity,
-                                fit: BoxFit.cover,
+                                    ],
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -470,7 +562,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
                             child: Image.asset(
-                              'assets/images/gruen@4x.png',
+                              'assets/images/standard_pfeil@4x.png',
                               width: 70,
                               height: 70,
                               fit: BoxFit.cover,
@@ -482,7 +574,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
                             child: Image.asset(
-                              'assets/images/gelbgruen@4x.png',
+                              'assets/images/gruen@4x.png',
                               width: 70,
                               height: 70,
                               fit: BoxFit.cover,
@@ -494,7 +586,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
                             child: Image.asset(
-                              'assets/images/gelb@4x.png',
+                              'assets/images/gelbgruen@4x.png',
                               width: 70,
                               height: 70,
                               fit: BoxFit.cover,
@@ -506,7 +598,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
                             child: Image.asset(
-                              'assets/images/orange@4x.png',
+                              'assets/images/gelb@4x.png',
                               width: 70,
                               height: 70,
                               fit: BoxFit.cover,
@@ -514,6 +606,18 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           ),
                         ),
                       if ((currentUserDocument?.temperature) >= 25.0)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                          child: AuthUserStreamWidget(
+                            child: Image.asset(
+                              'assets/images/orange@4x.png',
+                              width: 70,
+                              height: 70,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      if ((currentUserDocument?.temperature) >= 5.0)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(

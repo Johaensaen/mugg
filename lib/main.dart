@@ -60,10 +60,13 @@ class _MyAppState extends State<MyApp> {
       home: initialUser == null || displaySplashImage
           ? Container(
               color: Colors.transparent,
-              child: Builder(
-                builder: (context) => Image.asset(
-                  'assets/images/app_launcher_icon.png',
-                  fit: BoxFit.none,
+              child: Center(
+                child: Builder(
+                  builder: (context) => Image.asset(
+                    'assets/images/logo@4x.png',
+                    width: 150,
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
               ),
             )
