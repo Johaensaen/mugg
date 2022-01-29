@@ -229,6 +229,90 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             children: [
                               Stack(
                                 children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              0.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/standard.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              5.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/gruen_becher.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              10.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/guengelb_becher.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              15.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/gelb_becher.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              20.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/orange_becher.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          if ((currentUserDocument
+                                                  ?.temperature) >=
+                                              25.0)
+                                            AuthUserStreamWidget(
+                                              child: Image.asset(
+                                                'assets/images/rot_becher.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 50, 0, 50),
@@ -420,90 +504,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                       ],
                                     ),
                                   ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              0.0)
-                                            AuthUserStreamWidget(
-                                              child: Image.asset(
-                                                'assets/images/standard.png',
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              5.0)
-                                            AuthUserStreamWidget(
-                                              child: Image.asset(
-                                                'assets/images/gruen_becher.png',
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              10.0)
-                                            AuthUserStreamWidget(
-                                              child: Image.asset(
-                                                'assets/images/guengelb_becher.png',
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              15.0)
-                                            AuthUserStreamWidget(
-                                              child: Image.asset(
-                                                'assets/images/gelb_becher.png',
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              20.0)
-                                            AuthUserStreamWidget(
-                                              child: Image.asset(
-                                                'assets/images/orange_becher.png',
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              25.0)
-                                            AuthUserStreamWidget(
-                                              child: Image.asset(
-                                                'assets/images/rot_becher.png',
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
                                 ],
                               ),
                             ],
@@ -557,7 +557,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 children: [
                   Stack(
                     children: [
-                      if ((currentUserDocument?.temperature) >= 5.0)
+                      if ((currentUserDocument?.temperature) >= 0.0)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -569,7 +569,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.temperature) >= 10.0)
+                      if ((currentUserDocument?.temperature) >= 5.0)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -581,7 +581,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.temperature) >= 15.0)
+                      if ((currentUserDocument?.temperature) >= 10.0)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -593,7 +593,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.temperature) >= 20.0)
+                      if ((currentUserDocument?.temperature) >= 15.0)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -605,7 +605,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.temperature) >= 25.0)
+                      if ((currentUserDocument?.temperature) >= 20.0)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -617,7 +617,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.temperature) >= 5.0)
+                      if ((currentUserDocument?.temperature) >= 25.0)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
