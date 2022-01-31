@@ -15,12 +15,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DashboardWidget extends StatefulWidget {
-  const DashboardWidget({
-    Key key,
-    this.uploaded,
-  }) : super(key: key);
-
-  final String uploaded;
+  const DashboardWidget({Key key}) : super(key: key);
 
   @override
   _DashboardWidgetState createState() => _DashboardWidgetState();
@@ -216,7 +211,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                       ),
                       Container(
                         width: double.infinity,
-                        height: 500,
+                        height: 480,
                         decoration: BoxDecoration(
                           color: Color(0xFFF5F5F5),
                         ),
@@ -237,9 +232,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                     children: [
                                       Stack(
                                         children: [
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              0.0)
+                                          if ((currentUserDocument?.distance) <=
+                                              100)
                                             AuthUserStreamWidget(
                                               child: Image.asset(
                                                 'assets/images/standard.png',
@@ -249,9 +243,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              5.0)
+                                          if ((currentUserDocument?.distance) <=
+                                              84)
                                             AuthUserStreamWidget(
                                               child: Image.asset(
                                                 'assets/images/gruen_becher.png',
@@ -261,9 +254,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              10.0)
+                                          if ((currentUserDocument?.distance) <=
+                                              68)
                                             AuthUserStreamWidget(
                                               child: Image.asset(
                                                 'assets/images/guengelb_becher.png',
@@ -273,9 +265,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              15.0)
+                                          if ((currentUserDocument?.distance) <=
+                                              52)
                                             AuthUserStreamWidget(
                                               child: Image.asset(
                                                 'assets/images/gelb_becher.png',
@@ -285,9 +276,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              20.0)
+                                          if ((currentUserDocument?.distance) <=
+                                              36)
                                             AuthUserStreamWidget(
                                               child: Image.asset(
                                                 'assets/images/orange_becher.png',
@@ -297,16 +287,19 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
-                                          if ((currentUserDocument
-                                                  ?.temperature) >=
-                                              25.0)
-                                            AuthUserStreamWidget(
-                                              child: Image.asset(
-                                                'assets/images/rot_becher.png',
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                fit: BoxFit.cover,
+                                          if ((currentUserDocument?.distance) <=
+                                              20)
+                                            Align(
+                                              alignment:
+                                                  AlignmentDirectional(0, 0),
+                                              child: AuthUserStreamWidget(
+                                                child: Image.asset(
+                                                  'assets/images/rot_becher.png',
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                         ],
@@ -538,10 +531,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                   AuthUserStreamWidget(
                     child: Text(
                       formatNumber(
-                        currentUserDocument?.temperature,
-                        formatType: FormatType.decimal,
-                        decimalType: DecimalType.commaDecimal,
-                        currency: 'Meter ',
+                        currentUserDocument?.distance,
+                        formatType: FormatType.percent,
                       ),
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
@@ -557,7 +548,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 children: [
                   Stack(
                     children: [
-                      if ((currentUserDocument?.temperature) >= 0.0)
+                      if ((currentUserDocument?.distance) <= 100)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -569,7 +560,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.temperature) >= 5.0)
+                      if ((currentUserDocument?.distance) <= 84)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -581,7 +572,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.temperature) >= 10.0)
+                      if ((currentUserDocument?.distance) <= 68)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -593,7 +584,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.temperature) >= 15.0)
+                      if ((currentUserDocument?.distance) <= 52)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -605,7 +596,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.temperature) >= 20.0)
+                      if ((currentUserDocument?.distance) <= 36)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -617,7 +608,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.temperature) >= 25.0)
+                      if ((currentUserDocument?.distance) <= 20)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(

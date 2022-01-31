@@ -1,17 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
 
-class BechioFirebaseUser {
-  BechioFirebaseUser(this.user);
+class MuggFirebaseUser {
+  MuggFirebaseUser(this.user);
   User user;
   bool get loggedIn => user != null;
 }
 
-BechioFirebaseUser currentUser;
+MuggFirebaseUser currentUser;
 bool get loggedIn => currentUser?.loggedIn ?? false;
-Stream<BechioFirebaseUser> bechioFirebaseUserStream() => FirebaseAuth.instance
+Stream<MuggFirebaseUser> muggFirebaseUserStream() => FirebaseAuth.instance
     .authStateChanges()
     .debounce((user) => user == null && !loggedIn
         ? TimerStream(true, const Duration(seconds: 1))
         : Stream.value(user))
-    .map<BechioFirebaseUser>((user) => currentUser = BechioFirebaseUser(user));
+    .map<MuggFirebaseUser>((user) => currentUser = MuggFirebaseUser(user));

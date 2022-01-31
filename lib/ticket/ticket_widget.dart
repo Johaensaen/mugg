@@ -79,75 +79,52 @@ class _TicketWidgetState extends State<TicketWidget> {
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      StreamBuilder<List<UsersRecord>>(
-                        stream: queryUsersRecord(),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitDoubleBounce(
-                                  color: FlutterFlowTheme.primaryColor,
-                                  size: 50,
-                                ),
-                              ),
-                            );
+                      FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30,
+                        buttonSize: 46,
+                        icon: Icon(
+                          Icons.add_circle,
+                          color: Color(0xFF8992FF),
+                          size: 24,
+                        ),
+                        onPressed: () async {
+                          final selectedMedia =
+                              await selectMediaWithSourceBottomSheet(
+                            context: context,
+                            allowPhoto: true,
+                            pickerFontFamily: 'Poppins',
+                          );
+                          if (selectedMedia != null &&
+                              validateFileFormat(
+                                  selectedMedia.storagePath, context)) {
+                            showUploadMessage(context, 'Uploading file...',
+                                showLoading: true);
+                            final downloadUrl = await uploadData(
+                                selectedMedia.storagePath, selectedMedia.bytes);
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            if (downloadUrl != null) {
+                              setState(() => uploadedFileUrl = downloadUrl);
+                              showUploadMessage(context, 'Success!');
+                            } else {
+                              showUploadMessage(
+                                  context, 'Failed to upload media');
+                              return;
+                            }
                           }
-                          List<UsersRecord> iconButtonUsersRecordList =
-                              snapshot.data;
-                          return FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30,
-                            buttonSize: 46,
-                            icon: Icon(
-                              Icons.add_circle,
-                              color: Color(0xFF8992FF),
-                              size: 24,
-                            ),
-                            onPressed: () async {
-                              final selectedMedia =
-                                  await selectMediaWithSourceBottomSheet(
-                                context: context,
-                                allowPhoto: true,
-                                pickerFontFamily: 'Poppins',
-                              );
-                              if (selectedMedia != null &&
-                                  validateFileFormat(
-                                      selectedMedia.storagePath, context)) {
-                                showUploadMessage(context, 'Uploading file...',
-                                    showLoading: true);
-                                final downloadUrl = await uploadData(
-                                    selectedMedia.storagePath,
-                                    selectedMedia.bytes);
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                                if (downloadUrl != null) {
-                                  setState(() => uploadedFileUrl = downloadUrl);
-                                  showUploadMessage(context, 'Success!');
-                                } else {
-                                  showUploadMessage(
-                                      context, 'Failed to upload media');
-                                  return;
-                                }
-                              }
 
-                              final usersUpdateData = createUsersRecordData(
-                                ticketUrl: uploadedFileUrl,
-                              );
-                              await currentUserReference
-                                  .update(usersUpdateData);
-                              await Navigator.push(
-                                context,
-                                PageTransition(
-                                  type: PageTransitionType.fade,
-                                  duration: Duration(milliseconds: 300),
-                                  reverseDuration: Duration(milliseconds: 300),
-                                  child: TicketWidget(),
-                                ),
-                              );
-                            },
+                          final usersUpdateData = createUsersRecordData(
+                            ticketUrl: uploadedFileUrl,
+                          );
+                          await currentUserReference.update(usersUpdateData);
+                          await Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 300),
+                              reverseDuration: Duration(milliseconds: 300),
+                              child: TicketWidget(),
+                            ),
                           );
                         },
                       ),

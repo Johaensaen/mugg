@@ -45,6 +45,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   double get humidity;
 
   @nullable
+  int get distance;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -57,7 +60,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..budget = 0.0
     ..ticketUrl = ''
     ..temperature = 0.0
-    ..humidity = 0.0;
+    ..humidity = 0.0
+    ..distance = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -91,6 +95,7 @@ Map<String, dynamic> createUsersRecordData({
   String ticketUrl,
   double temperature,
   double humidity,
+  int distance,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
@@ -104,4 +109,5 @@ Map<String, dynamic> createUsersRecordData({
           ..budget = budget
           ..ticketUrl = ticketUrl
           ..temperature = temperature
-          ..humidity = humidity));
+          ..humidity = humidity
+          ..distance = distance));

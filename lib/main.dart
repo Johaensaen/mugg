@@ -6,8 +6,8 @@ import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
-import 'package:bechio/login/login_widget.dart';
-import 'package:bechio/dashboard/dashboard_widget.dart';
+import 'package:mugg/login/login_widget.dart';
+import 'package:mugg/dashboard/dashboard_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -25,15 +25,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Stream<BechioFirebaseUser> userStream;
-  BechioFirebaseUser initialUser;
+  Stream<MuggFirebaseUser> userStream;
+  MuggFirebaseUser initialUser;
   bool displaySplashImage = true;
   final authUserSub = authenticatedUserStream.listen((_) {});
 
   @override
   void initState() {
     super.initState();
-    userStream = bechioFirebaseUserStream()
+    userStream = muggFirebaseUserStream()
       ..listen((user) => initialUser ?? setState(() => initialUser = user));
     Future.delayed(
         Duration(seconds: 1), () => setState(() => displaySplashImage = false));
@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'bechio',
+      title: 'Mugg',
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -59,12 +59,12 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(primarySwatch: Colors.blue),
       home: initialUser == null || displaySplashImage
           ? Container(
-              color: Colors.transparent,
+              color: FlutterFlowTheme.primaryColor,
               child: Center(
                 child: Builder(
                   builder: (context) => Image.asset(
-                    'assets/images/logo@4x.png',
-                    width: 150,
+                    'assets/images/Splash.png',
+                    width: MediaQuery.of(context).size.width * 0.8,
                     fit: BoxFit.fitWidth,
                   ),
                 ),
