@@ -244,7 +244,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               ),
                                             ),
                                           if ((currentUserDocument?.distance) <=
-                                              84)
+                                              90)
                                             AuthUserStreamWidget(
                                               child: Image.asset(
                                                 'assets/images/gruen_becher.png',
@@ -255,7 +255,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               ),
                                             ),
                                           if ((currentUserDocument?.distance) <=
-                                              68)
+                                              80)
                                             AuthUserStreamWidget(
                                               child: Image.asset(
                                                 'assets/images/guengelb_becher.png',
@@ -266,7 +266,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               ),
                                             ),
                                           if ((currentUserDocument?.distance) <=
-                                              52)
+                                              70)
                                             AuthUserStreamWidget(
                                               child: Image.asset(
                                                 'assets/images/gelb_becher.png',
@@ -277,7 +277,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               ),
                                             ),
                                           if ((currentUserDocument?.distance) <=
-                                              36)
+                                              60)
                                             AuthUserStreamWidget(
                                               child: Image.asset(
                                                 'assets/images/orange_becher.png',
@@ -288,7 +288,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                               ),
                                             ),
                                           if ((currentUserDocument?.distance) <=
-                                              20)
+                                              50)
                                             Align(
                                               alignment:
                                                   AlignmentDirectional(0, 0),
@@ -534,7 +534,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         currentUserDocument?.distance,
                         formatType: FormatType.decimal,
                         decimalType: DecimalType.commaDecimal,
-                        currency: '%',
+                        currency: 'Signal Stärke ',
                       ),
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
@@ -562,7 +562,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.distance) <= 84)
+                      if ((currentUserDocument?.distance) <= 90)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -574,7 +574,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.distance) <= 68)
+                      if ((currentUserDocument?.distance) <= 80)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -598,7 +598,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.distance) <= 36)
+                      if ((currentUserDocument?.distance) <= 60)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
@@ -610,7 +610,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             ),
                           ),
                         ),
-                      if ((currentUserDocument?.distance) <= 20)
+                      if ((currentUserDocument?.distance) <= 50)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                           child: AuthUserStreamWidget(
