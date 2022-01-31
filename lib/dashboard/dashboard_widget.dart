@@ -532,7 +532,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                     child: Text(
                       formatNumber(
                         currentUserDocument?.distance,
-                        formatType: FormatType.percent,
+                        formatType: FormatType.decimal,
+                        decimalType: DecimalType.commaDecimal,
+                        currency: '%',
                       ),
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',
