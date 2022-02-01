@@ -338,44 +338,133 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(8, 0, 0, 0),
-                                                child: Text(
-                                                  'Verbunden',
-                                                  style: FlutterFlowTheme
-                                                      .bodyText1
-                                                      .override(
-                                                    fontFamily: 'Poppins',
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(8, 0, 0, 0),
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    await signOut();
-                                                    await Navigator
-                                                        .pushAndRemoveUntil(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            LoginWidget(),
+                                              Stack(
+                                                children: [
+                                                  if ((currentUserDocument
+                                                          ?.distance) >
+                                                      10)
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8, 0, 0, 0),
+                                                      child:
+                                                          AuthUserStreamWidget(
+                                                        child: Text(
+                                                          'Verbunden',
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
                                                       ),
-                                                      (r) => false,
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    width: 16,
-                                                    height: 16,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xCD97EE60),
-                                                      shape: BoxShape.circle,
                                                     ),
-                                                  ),
-                                                ),
+                                                  if ((currentUserDocument
+                                                          ?.distance) <
+                                                      10)
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8, 0, 0, 0),
+                                                      child:
+                                                          AuthUserStreamWidget(
+                                                        child: Text(
+                                                          'Getrennt',
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Poppins',
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  if ((currentUserDocument
+                                                          ?.distance) >
+                                                      10)
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  104, 2, 0, 0),
+                                                      child:
+                                                          AuthUserStreamWidget(
+                                                        child: InkWell(
+                                                          onTap: () async {
+                                                            await signOut();
+                                                            await Navigator
+                                                                .pushAndRemoveUntil(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        LoginWidget(),
+                                                              ),
+                                                              (r) => false,
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            width: 16,
+                                                            height: 16,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xFF8CC63F),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  if ((currentUserDocument
+                                                          ?.distance) <
+                                                      10)
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  104, 2, 0, 0),
+                                                      child:
+                                                          AuthUserStreamWidget(
+                                                        child: InkWell(
+                                                          onTap: () async {
+                                                            await signOut();
+                                                            await Navigator
+                                                                .pushAndRemoveUntil(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        LoginWidget(),
+                                                              ),
+                                                              (r) => false,
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            width: 16,
+                                                            height: 16,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xFFC1272D),
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ],
                                               ),
                                               FlutterFlowIconButton(
                                                 borderColor: Colors.transparent,
