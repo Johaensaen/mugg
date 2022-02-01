@@ -138,16 +138,31 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                                 child: AuthUserStreamWidget(
-                                  child: Text(
-                                    valueOrDefault<String>(
-                                      currentUserDisplayName,
-                                      'Name',
-                                    ),
-                                    textAlign: TextAlign.start,
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          type: PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 0),
+                                          reverseDuration:
+                                              Duration(milliseconds: 0),
+                                          child: DashboardWidget(),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      valueOrDefault<String>(
+                                        currentUserDisplayName,
+                                        'Name',
+                                      ),
+                                      textAlign: TextAlign.start,
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Poppins',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -411,7 +426,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                       currentUserDocument
                                                           ?.humidity,
                                                       formatType:
-                                                          FormatType.percent,
+                                                          FormatType.decimal,
+                                                      decimalType: DecimalType
+                                                          .commaDecimal,
+                                                      currency: '% ',
                                                     ),
                                                     style: FlutterFlowTheme
                                                         .bodyText1
@@ -451,7 +469,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                                             FormatType.decimal,
                                                         decimalType: DecimalType
                                                             .commaDecimal,
-                                                        currency: '€',
+                                                        currency: '€ ',
                                                       ),
                                                       '0',
                                                     ),
@@ -503,7 +521,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                             children: [
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(60, 0, 0, 0),
+                                                    .fromSTEB(52, 0, 0, 0),
                                                 child: AuthUserStreamWidget(
                                                   child: Text(
                                                     currentUserDocument?.et,
@@ -555,7 +573,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         currentUserDocument?.distance,
                         formatType: FormatType.decimal,
                         decimalType: DecimalType.commaDecimal,
-                        currency: 'Signal Stärke ',
+                        currency: 'Signal Stärke  % ',
                       ),
                       style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Poppins',

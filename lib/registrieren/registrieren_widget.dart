@@ -462,7 +462,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                           displayName: nameController.text,
                           uid: '',
                           createdTime: getCurrentTimestamp,
-                          phoneNumber: '',
+                          phoneNumber: '0',
                           budget: double.parse(betragController.text),
                           temperature: 0.0,
                           humidity: 0.0,

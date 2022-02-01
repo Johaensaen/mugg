@@ -89,53 +89,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                               ),
                             ],
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Expanded(
-                                  child: Align(
-                                    alignment: AlignmentDirectional(1, 0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 48, 0, 0),
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DashboardWidget(),
-                                            ),
-                                          );
-                                        },
-                                        text: 'Weiter',
-                                        options: FFButtonOptions(
-                                          width: 130,
-                                          height: 40,
-                                          color: Color(0xFF8992FF),
-                                          textStyle: FlutterFlowTheme.subtitle2
-                                              .override(
-                                            fontFamily: 'Poppins',
-                                            color: Colors.white,
-                                          ),
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1,
-                                          ),
-                                          borderRadius: 10,
-                                        ),
-                                        showLoadingIndicator: false,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                       Column(
@@ -632,7 +585,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Image.asset(
-                                          'assets/images/kisspng-coffee-cup-portable-network-graphics-cafe-to-go-coffee-cup-with-lid-h-3-2k-exprssoh-5d1ab9e1298889.6181831815620326091701.png',
+                                          'assets/images/Zeichenflache_1.png',
                                           width: 40,
                                           height: 40,
                                           fit: BoxFit.fitWidth,
@@ -662,7 +615,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Becher x1z1',
+                                                  'KK\'s Becher',
                                                   style: FlutterFlowTheme
                                                       .bodyText2
                                                       .override(
@@ -731,7 +684,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Image.asset(
-                                          'assets/images/kisspng-coffee-cup-portable-network-graphics-cafe-to-go-coffee-cup-with-lid-h-3-2k-exprssoh-5d1ab9e1298889.6181831815620326091701.png',
+                                          'assets/images/Zeichenflache_1.png',
                                           width: 40,
                                           height: 40,
                                           fit: BoxFit.fitWidth,
@@ -761,7 +714,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Becher x2z2',
+                                                  'LK\'s Becher',
                                                   style: FlutterFlowTheme
                                                       .bodyText2
                                                       .override(
@@ -830,7 +783,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Image.asset(
-                                          'assets/images/kisspng-coffee-cup-portable-network-graphics-cafe-to-go-coffee-cup-with-lid-h-3-2k-exprssoh-5d1ab9e1298889.6181831815620326091701.png',
+                                          'assets/images/Zeichenflache_1.png',
                                           width: 40,
                                           height: 40,
                                           fit: BoxFit.fitWidth,
@@ -860,7 +813,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  'Becher x3z3',
+                                                  'TK\'s Becher',
                                                   style: FlutterFlowTheme
                                                       .bodyText2
                                                       .override(
@@ -935,33 +888,38 @@ class _LoginWidgetState extends State<LoginWidget> {
                               ),
                             ],
                           ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 16, 0, 0),
-                                child: Text(
-                                  'Unsere Partner',
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Poppins',
-                                    color: Color(0xFF8992FF),
-                                    fontWeight: FontWeight.w500,
+                          InkWell(
+                            onTap: () async {
+                              await launchURL('https://recup.de/');
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16, 16, 0, 0),
+                                  child: Text(
+                                    'Unsere Partner',
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Color(0xFF8992FF),
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(1, 0, 0, 0),
-                                child: Icon(
-                                  Icons.arrow_forward_rounded,
-                                  color: Color(0xFF8992FF),
-                                  size: 20,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      1, 0, 0, 0),
+                                  child: Icon(
+                                    Icons.arrow_forward_rounded,
+                                    color: Color(0xFF8992FF),
+                                    size: 20,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.max,
@@ -974,6 +932,18 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         125, 56, 16, 0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
+                                        if (!formKey.currentState.validate()) {
+                                          return;
+                                        }
+                                        final user = await signInWithEmail(
+                                          context,
+                                          emailAddressController.text,
+                                          passwordController.text,
+                                        );
+                                        if (user == null) {
+                                          return;
+                                        }
+
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(
