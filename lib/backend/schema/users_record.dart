@@ -51,6 +51,10 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get et;
 
   @nullable
+  @BuiltValueField(wireName: 'notification_delete')
+  bool get notificationDelete;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -65,7 +69,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..temperature = 0.0
     ..humidity = 0.0
     ..distance = 0
-    ..et = '';
+    ..et = ''
+    ..notificationDelete = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -101,6 +106,7 @@ Map<String, dynamic> createUsersRecordData({
   double humidity,
   int distance,
   String et,
+  bool notificationDelete,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
@@ -116,4 +122,5 @@ Map<String, dynamic> createUsersRecordData({
           ..temperature = temperature
           ..humidity = humidity
           ..distance = distance
-          ..et = et));
+          ..et = et
+          ..notificationDelete = notificationDelete));

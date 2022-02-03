@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1070130932530-tc2hse8jc4773caemlf82m0qqgee9gsb.apps.googleusercontent.com</string>
+	<string>248127917218-ng3uto99gucmvn4de11qkisdr0fv4rb2.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1070130932530-tc2hse8jc4773caemlf82m0qqgee9gsb</string>
+	<string>com.googleusercontent.apps.248127917218-ng3uto99gucmvn4de11qkisdr0fv4rb2</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>1070130932530-1fqh9jffe32fo9urps4fh7naedbu47i9.apps.googleusercontent.com</string>
+	<string>248127917218-i25ovi08tp90c05prvd8t0s2ockimlov.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDbKr4Ay4ji0Grkn1i9NKfO8bk9MsufhUU</string>
+	<string>AIzaSyAXYWH4CfF4-W7ymyZxwTX2mNzdBZrbYko</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1070130932530</string>
+	<string>248127917218</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.flutterflow.bechio</string>
+	<string>com.flutterflow.mugg</string>
 	<key>PROJECT_ID</key>
-	<string>bechio</string>
+	<string>mugg-dbd41</string>
 	<key>STORAGE_BUCKET</key>
-	<string>bechio.appspot.com</string>
+	<string>mugg-dbd41.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1070130932530:ios:0f0a3dbd81313be62f852b</string>
+	<string>1:248127917218:ios:a0574574694824d7a8dbfb</string>
 </dict>
 </plist>

@@ -98,17 +98,25 @@ class _TicketWidgetState extends State<TicketWidget> {
                           if (selectedMedia != null &&
                               validateFileFormat(
                                   selectedMedia.storagePath, context)) {
-                            showUploadMessage(context, 'Uploading file...',
-                                showLoading: true);
+                            showUploadMessage(
+                              context,
+                              'Uploading file...',
+                              showLoading: true,
+                            );
                             final downloadUrl = await uploadData(
                                 selectedMedia.storagePath, selectedMedia.bytes);
                             ScaffoldMessenger.of(context).hideCurrentSnackBar();
                             if (downloadUrl != null) {
                               setState(() => uploadedFileUrl = downloadUrl);
-                              showUploadMessage(context, 'Success!');
+                              showUploadMessage(
+                                context,
+                                'Success!',
+                              );
                             } else {
                               showUploadMessage(
-                                  context, 'Failed to upload media');
+                                context,
+                                'Failed to upload media',
+                              );
                               return;
                             }
                           }
@@ -182,20 +190,21 @@ class _TicketWidgetState extends State<TicketWidget> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(50, 50, 0, 0),
-                  child: AuthUserStreamWidget(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        currentUserDocument?.ticketUrl,
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.cover,
+                if ((currentUserDocument?.ticketUrl) == '')
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(50, 50, 0, 0),
+                    child: AuthUserStreamWidget(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          currentUserDocument?.ticketUrl,
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
-                ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(25, 283, 0, 0),
                   child: AuthUserStreamWidget(

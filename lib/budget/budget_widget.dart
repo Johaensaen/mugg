@@ -116,9 +116,7 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                             formatType: FormatType.decimal,
                             decimalType: DecimalType.commaDecimal,
                           ),
-                          labelStyle: FlutterFlowTheme.bodyText1,
                           hintText: '00.00 (Punkt statt Komma)',
-                          hintStyle: FlutterFlowTheme.bodyText1,
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0xFFDBE2E7),

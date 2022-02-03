@@ -1,4 +1,4 @@
-package com.flutterflow.bechio
+package com.flutterflow.mugg
 
 import io.flutter.embedding.android.FlutterActivity
 

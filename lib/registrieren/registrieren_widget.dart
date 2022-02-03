@@ -441,7 +441,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                "Passwords don't match!",
+                                'Passwords don\'t match!',
                               ),
                             ),
                           );
@@ -465,7 +465,7 @@ class _RegistrierenWidgetState extends State<RegistrierenWidget> {
                           phoneNumber: '0',
                           budget: double.parse(betragController.text),
                           temperature: 0.0,
-                          humidity: 0.0,
+                          humidity: 100.0,
                         );
                         await UsersRecord.collection
                             .doc(user.uid)

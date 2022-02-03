@@ -16,6 +16,7 @@
 	<string>Mugg</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
@@ -27,7 +28,7 @@
             <string>Editor</string>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>com.googleusercontent.apps.1070130932530-tc2hse8jc4773caemlf82m0qqgee9gsb</string>
+                <string>com.googleusercontent.apps.248127917218-ng3uto99gucmvn4de11qkisdr0fv4rb2</string>
                 
             </array>
         </dict>
