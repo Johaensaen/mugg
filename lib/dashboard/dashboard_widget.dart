@@ -9,6 +9,7 @@ import '../flutter_flow/upload_media.dart';
 import '../login/login_widget.dart';
 import '../mitteilungen/mitteilungen_widget.dart';
 import '../ticket/ticket_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -130,11 +131,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                             decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                             ),
-                                            child: Image.network(
-                                              valueOrDefault<String>(
-                                                currentUserPhoto,
-                                                'Foto',
-                                              ),
+                                            child: CachedNetworkImage(
+                                              imageUrl: currentUserPhoto,
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -261,7 +259,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                           children: [
                                             if ((currentUserDocument
                                                     ?.distance) <=
-                                                86)
+                                                100)
                                               AuthUserStreamWidget(
                                                 child: Image.asset(
                                                   'assets/images/standard.png',
@@ -604,7 +602,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                   children: [
                     Stack(
                       children: [
-                        if ((currentUserDocument?.distance) <= 86)
+                        if ((currentUserDocument?.distance) <= 100)
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
