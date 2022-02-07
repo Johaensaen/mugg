@@ -46,22 +46,22 @@ class _LoginWidgetState extends State<LoginWidget> {
             height: MediaQuery.of(context).size.height * 1,
             child: Stack(
               children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 50),
-                  child: PageView(
-                    controller: pageViewController ??=
-                        PageController(initialPage: 0),
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      Column(
+                PageView(
+                  controller: pageViewController ??=
+                      PageController(initialPage: 0),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    SingleChildScrollView(
+                      child: Column(
                         mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 80, 0, 72),
+                                    16, 16, 0, 72),
                                 child: Text(
                                   'Hallo!',
                                   style: FlutterFlowTheme.title1.override(
@@ -91,7 +91,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                         ],
                       ),
-                      Column(
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Column(
@@ -102,7 +104,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        16, 80, 0, 72),
+                                        16, 16, 0, 72),
                                     child: Text(
                                       'Melde dich an',
                                       style: FlutterFlowTheme.title1.override(
@@ -449,6 +451,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             ),
                                             child: SvgPicture.asset(
                                               'assets/images/social_GoogleWhite.svg',
+                                              fit: BoxFit.scaleDown,
                                             ),
                                           ),
                                         ),
@@ -504,6 +507,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           ),
                                           child: SvgPicture.asset(
                                             'assets/images/social_Apple.svg',
+                                            fit: BoxFit.scaleDown,
                                           ),
                                         ),
                                       ),
@@ -515,7 +519,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                         ],
                       ),
-                      Column(
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Row(
@@ -523,7 +529,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 80, 0, 72),
+                                    16, 16, 0, 72),
                                 child: Text(
                                   'Wähle deinen Cup',
                                   style: FlutterFlowTheme.title1.override(
@@ -867,7 +873,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                         ],
                       ),
-                      Column(
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Row(
@@ -875,7 +883,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             children: [
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 80, 0, 72),
+                                    16, 16, 0, 72),
                                 child: Text(
                                   'Danke, \ndass du hier bist!',
                                   style: FlutterFlowTheme.title1.override(
@@ -993,8 +1001,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 Align(
                   alignment: AlignmentDirectional(0, 0.8),
